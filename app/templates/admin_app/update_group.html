@@ -1,0 +1,15 @@
+{% extends 'admin_app/index.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="row">
+        <h2 class="alert alert-info">Update Group Data</h2>
+        <form action="" method="post" class="update_group_form">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="btn btn-success" value="Update">
+            <a href="{% url 'list-products' %}" class="btn btn-info">Back to Group List</a>
+        </form>
+    </div>
+
+{% endblock %}

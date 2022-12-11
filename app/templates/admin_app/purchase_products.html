@@ -1,0 +1,67 @@
+{% extends 'admin_app/index.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="table-wrapper">
+        <table class="table table-border table-striped" style="width:100%;">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">PURCHASE BILL NO</th>
+                    <th scope="col">BARCODE</th>
+                    <th scope="col">PRODUCT DESCRIPTION</th>
+                    <th scope="col">ARTICLE NO</th>
+                    <th scope="col">HSN NO.</th>
+                    <th scope="col">SIZE</th>
+                    <th scope="col">QUANTITY</th>
+                    <th scope="col">FREE</th>
+                    <th scope="col">PRODUCT PRICE</th>
+                    <th scope="col">MRP</th>
+                    <th scope="col">TAX (%)</th>
+                    <th scope="col">CESS (%)</th>
+                    <th scope="col">DISCOUNT1 (%)</th>
+                    <th scope="col">DISCOUNT AMOUNT1</th>
+                    <th scope="col">DISCOUNT2 (%)</th>
+                    <th scope="col">DISCOUNT AMOUNT2</th>
+                    <th scope="col">L_COST</th>
+                    <th scope="col">TOTAL COST</th>
+                    <th scope="col">SELLING PRICE</th>
+                    <th scope="col">TOTAL</th>
+                    <th scope="col">MARGIN (%)</th>
+                </tr>
+            </thead>
+            {% for pp in purchase_product_list %}
+            <tbody>
+                <tr>
+                    <td scope="row">{{ pp.id }}</td>
+                    <td scope="row">{{ pp.pur_bill_no }}</td>
+                    <td scope="row">{{ pp.barcode }}</td>
+                    <td scope="row">{{ pp.product_description }}</td>
+                    <td scope="row">{{ pp.article_no }}</td>
+                    <td scope="row">{{ pp.hsn_no }}</td>
+                    <td scope="row">{{ pp.size }}</td>
+                    <td scope="row">{{ pp.qty }}</td>
+                    <td scope="row">{{ pp.free }}</td>
+                    <td scope="row">{{ pp.free }}</td>
+                    <td scope="row">{{ pp.mrp }}</td>
+                    <td scope="row">{{ pp.tax }}</td>
+                    <td scope="row">{{ pp.cess }}</td>
+                    <td scope="row">{{ pp.disc1 }}</td>
+                    <td scope="row">{{ pp.d_Amt1 }}</td>
+                    <td scope="row">{{ pp.disc2 }}</td>
+                    <td scope="row">{{ pp.d_Amt2 }}</td>
+                    <td scope="row">{{ pp.l_Cost }}</td>
+                    <td scope="row">{{ pp.tot_Cost }}</td>
+                    <td scope="row">{{ pp.s_Price }}</td>
+                    <td scope="row">{{ pp.total }}</td>
+                    <td scope="row">{{ pp.marg }}</td>
+                    <td>
+                        <a href="" class="btn btn-info">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+           </tbody> 
+        </table>
+    </div>
+
+{% endblock %}

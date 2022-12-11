@@ -1,0 +1,26 @@
+{% extends 'staff/index.html' %}
+{% load static %}
+{% block content %}
+
+    <h1>Success Bills</h1>
+    <div class="table-wrapper">
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">BILL NO</th>
+
+                </tr>
+            </thead>
+            {% for sb in success_bill %}
+            <tbody>
+                <tr>
+                    <td scope="row">{{ sb.id }}</td>
+                    <td scope="row">{{ sb.cart_id }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

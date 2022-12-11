@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+
+    <!--Owl Carousel CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}">
+    
+    <!--FontAwesome CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/all.min.css' %}" />
+
+    <!--Custom CSS-->
+    <!-- <link rel="stylesheet" href="{% static 'app/css/style.css' %}" /> -->
+
+    <title>THE GROCERY HOUSE Bill_Page</title>
+    <!--FontAwesome CSS-->
+    <link
+      rel="stylesheet"
+      href="{% static 'app/assets/libs/flot/css/float-chart.css' %}"
+    />
+    <title>THE GROCERY HOUSE PAYMENT MODE </title>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="row">
+          <div class="col-md-12">
+              <div class="tab">
+                  <center><u><h1>FILL THE MODE OF PAYMENT</h1></u></center>
+
+                  <center><h3>Rs. </h3></center>
+                  {% if submitted %}
+                  Payment mode Inserted!!!
+                  {% else %}
+                      <form action="" method="post">
+                          {% csrf_token %}
+
+                          {{form.as_p}}
+
+                          <input type="submit" value="Submit" class="btn btn-primary" style="
+                          width: 180px;
+                          height: 80px;
+                          font-weight: 900;
+                        ">
+                          <a href="#"
+                        ><button
+                          style="
+                            width: 180px;
+                            height: 80px;
+                            font-weight: 900;
+                          "
+                          class="btn btn-info"
+                          id="generate-bill"
+                        >
+                        <i class="fa-duotone fa-money-bill-1-wave"></i>
+                          Generate Bill
+                        </button></a
+                      >
+                      {% endif %}
+                      </form>
+              </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

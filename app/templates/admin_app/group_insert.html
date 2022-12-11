@@ -1,0 +1,28 @@
+{% extends 'admin_app/index.html' %}
+{% load static %}
+{% block content %}
+<div class="page-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tab">
+                <!-- <div class="btn" style="background-color: blue;">
+                    <a class="btn" style="color: aliceblue; font-weight: 900;" href="#">
+                        + Add Group</a></div> -->
+                <center><u><h1>GROUP INSERTION FORM</h1></u></center>
+                {% if submitted %}
+                Group Inserted Successfully!!!
+                {% else %}
+                    <form action="" method="post" class="group_form">
+                        {% csrf_token %}
+
+                        {{forms.as_p}}
+
+                        <input type="submit" value="Submit" class="btn btn-success">
+                        <a href="{% url 'list-group' %}" class="btn btn-info">View Group List</a>
+                    {% endif %}
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'staff/index.html' %}
+{% load static %}
+{% block content %}
+    <h1>PURCHASE</h1>
+    <div class="btn" style="background-color: blue;">
+        <a class="btn" style="color: aliceblue; font-weight: 900;" href="{% url 'add-purchase-insert' %}">+ Add Purchase</a>
+    </div>
+        <div class="table-wrapper">
+            <table class="table table-bordered table-striped" style="width:100%;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Transaction Date</th>
+                        <th scope="col">Purchase Bill No</th>
+                        <th scope="col">Supplier Name</th>
+                        <th scope="col">Total Quantity</th>
+                        <th scope="col">Gross Amount</th>
+                        <th scope="col">Discounted Amount</th>
+                        <th scope="col">GST Amount</th>
+                        <th scope="col">Tcs</th>
+                        <th scope="col">Overall Charge</th>
+                        <th scope="col">Overall Discount</th>
+                        <th scope="col">Grand Total</th>
+                        <th scope="col">ADD PURCHASE PRODUCT</th>
+                        <th scope="col">ACTION</th>
+                    </tr>
+                </thead>
+                {% for pur in purchase_list %}
+                <tbody>
+                    <tr>
+                        <td scope="row">{{ pur.id }}</td>
+                        <td scope="row">{{ pur.trans_date }}</td>
+                        <td scope="row">{{ pur.pur_bill_no }}</td>
+                        <td scope="row">{{ pur.supplier_name }}</td>
+                        <td scope="row">{{ pur.total_qty }}</td>
+                        <td scope="row">{{ pur.gross_amt }}</td>
+                        <td scope="row">{{ pur.disc_amt }}</td>
+                        <td scope="row">{{ pur.gst_amt }}</td>
+                        <td scope="row">{{ pur.tcs }}</td>
+                        <td scope="row">{{ pur.o_charge }}</td>
+                        <td scope="row">{{ pur.o_disc }}</td>
+                        <td scope="row">{{ pur.grand_total }}</td>
+                        <td><a href="{% url 'pur_pro_ins' %}" class="btn btn-info btn-sm">+Add Product</a></td>
+                        <td>
+                            <a href="{% url 'update-purchase' pur.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{% url 'purchase-delete' pur.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{% endblock %}

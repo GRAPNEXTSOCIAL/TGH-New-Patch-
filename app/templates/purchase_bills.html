@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+
+    <!--Owl Carousel CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}" />
+
+    <!--FontAwesome CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/all.min.css' %}" />
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
+
+    <title>THE GROCERY HOUSE {% block title %} {% endblock title %}</title>
+    <!--FontAwesome CSS-->
+    <link
+      rel="stylesheet"
+      href="{% static 'app/assets/libs/flot/css/float-chart.css' %}"
+    />
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="{% static 'app/dist/css/style.min.css' %}" />
+
+    <link href="{% static 'assetss/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assetss/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assetss/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assetss/css/style.css' %}" rel="stylesheet">
+  <style>
+    svg{
+    font-size: 120px;
+    padding-top: -50px;
+ }
+ .copy{
+    fill: none;
+    stroke: #fff;
+    stroke-width: 5px;
+    stroke-dasharray: 15% 40%;
+    stroke-dashoffset: 0%;
+    animation: textanimation 6s linear infinite;
+ }
+ @keyframes textanimation{
+    100%{
+        stroke-dashoffset: -35%;
+    }
+ }
+.copy1{
+    stroke: green;
+    animation-delay: -1s;
+ }
+.copy2{
+    stroke: green;
+    animation-delay: -2s;
+ }
+ .copy3{
+    stroke: green;
+    animation-delay: -3s;
+ }
+  .copy4{
+    stroke: green;
+    animation-delay: -4s;
+ }
+ .copy5{
+    stroke: green;
+    animation-delay: -5s;
+ }
+  </style>
+  </head>
+
+  <body>
+
+    <!-- Jquery -->
+<script
+src="https://code.jquery.com/jquery-3.5.1.min.js"
+integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+crossorigin="anonymous"
+></script>
+<!-- Bootstrap Bundle with Popper -->
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+crossorigin="anonymous"
+></script>
+<script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'app/js/all.min.js' %}"></script>
+<script src="{% static 'app/js/myscript.js' %}"></script>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+          <img src="{% static 'assetss/img/logo.png' %}" alt="">
+          <span class="d-none d-lg-block">THE GROCERY HOUSE</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+      </div><!-- End Logo -->
+  
+      
+      <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+  
+          <li class="nav-item d-block d-lg-none">
+            <a class="nav-link nav-icon search-bar-toggle " href="#">
+              <i class="bi bi-search"></i>
+            </a>
+          </li><!-- End Search Icon-->
+  
+          <li class="nav-item dropdown pe-3">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              {% if request.user.is_authenticated %}
+               <li class="nav-item dropdown mx-2">
+                  <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold; text-transform: uppercase;">
+                    {{request.user.username|capfirst}}
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>                 
+                    <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
+                  </ul>
+                </li>
+             </div>
+              {% endif %}
+              </ul>       <!-- End Profile Dropdown Items -->
+          </li><!-- End Profile Nav -->
+  
+        </ul>
+      </nav><!-- End Icons Navigation -->
+  
+  </header><!-- End Header -->
+    <br><br><br>
+
+
+    <div class="top" style="margin-left:20px;">
+      <div class="row">
+        <div class="col-md-3">
+              <label for="pur_trans_date"><span style="font-weight: bold;">Trans Date:</label>
+              <input type="text" placeholder="YYYY-MM-DD" name="pur_trans_date" style="width:50%;" data-name="trans_date">
+              <br>
+              <label for="pur_supplier_name"><span style="font-weight: bold;">Supplier:</label>
+              <select name="pur_supplier_name" id="" style="width: 50%;" data-name="supplier_name">
+                <option value="">Select Supplier</option>
+                  {% for s in supplier_all %}
+                    <option value="{{ s.id }}">{{ s.supplier }}</option>
+                  {% endfor %}
+              </select>
+              <a href="{% url 'supplier-insert' %}" class="btn btn-link"><i class="fa-regular fa-plus"></i></a>
+              <br>
+              <label for="pur_bill_type"><span style="font-weight: bold;">Bill Type:</label>
+              <select name="pur_bill_type" id="" style="width: 50%;" data-name="bill_type">
+                <option value="">Select Bill Tax Type</option>
+                <option value="CGST">CGST</option>
+                <option value="SGST">SGST</option>
+                <option value="IGST">IGST</option>
+                <option value="UNREGD">UNREGD</option>
+                <option value="COMPOSITE">COMPOSITE</option>
+              </select>
+        </div>
+        <div class="col-md-5">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="pur_bill_no"><span style="font-weight: bold;">Bill No:</label>
+                  <input type="text" data-name="pur_bill_no" name="pur_bill_no" style="width:50%;">
+              <br>
+               <label for="pur_supplier_name"><span style="font-weight: bold;">Ledger a/c:</label>
+               <input type="text" data-name="" name="pur_supplier_name" style="width: 50%;">
+            </div>
+            <div class="col-md-6">
+              <label for="pur_bill_no"><span style="font-weight: bold;">Bill Date:</label>
+              <input type="datetime" data-name="" placeholder="pur_trans_date" name="" style="width: 50%;">
+              <br>
+              <label for="pur_gstin"><span style="font-weight: bold;">GSTIN:</label>
+              <input type="text" data-name="gstin" name="pur_gstin" style="width: 50%;">
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <label for="billhead" style="font-size:15px;color: green;">Bill No:</label>
+          <input type="text" placeholder="" name="" id="bill-no" style="width:50%;">
+          <button type="submit"><i class="fa fa-search" id="bill-search"></i></button>
+          <br>
+          <label for="barcode" style="font-size:30px; color: red; font-weight: bold;">BarCode No:</label>
+          <input type="text" id="barcode" name="barcode" style="width:50%;">
+        </div>
+        
+      </div>
+    </div>
+
+
+
+  
+<div class="row">
+  <div class="col-md-12">
+    <div class="tab">
+      <div class="billing" style="height: 100%">
+        <!-- Start Heading 3 Images -->
+        
+      </div>
+      <div class="row" id="chi">
+        <div class="col-md-12">
+             <div class="card" style="border: 2px solid black; height: 65%; max-height:300px; overflow-y:scroll">
+            <div class="plcbill" id="print_area">
+              <div class="card" style="display: flex;">
+                <table
+                  class="table table-borderless"
+                  id="bill-items"
+                  style="width: 100%"
+                >
+                  <thead>
+                    <tr>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Sl.No</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">BarCode</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Product Description</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Article No</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Hsn No</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Size</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Qty</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Free</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">P.Price</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">MRP</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Tax%</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Disc1%</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">D Amt1</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Disc2%</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">D Amt2</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">L Cost</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Tot Cost</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">S.Price</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Total</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Marg%</th>                     
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row" style="margin-top:-40px;">
+          <div class="col-md-8"></div>
+          <div class="col-md-4">
+            <div class="total">
+                <div class="row">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4">
+                    <label for="pur_cess" style="font-size:12px;">Cess Amt</label>
+                     <input type="text" placeholder="" data-name="" name="pur_cess" style="width:40%;"/>
+                         <br />
+                         <label for="pur_tcs" style="font-size:12px;">TCS Amt</label>
+                     <input type="text" placeholder="" data-name="tcs" name="pur_tcs" style="width:40%;"/>
+                         <br />
+                         <label for="pur_o_charge" style="font-size:12px;">O Charges</label>
+                     <input type="text" placeholder="" data-name="o_charge" name="pur_o_charge" style="width:40%;"/>
+                         <br />
+                         <label for="pur_o_disc" style="font-size:12px;">Other Disc</label>
+                     <input type="text" placeholder="" data-name="o_disc" name="pur_o_disc" style="width:40%;"/>
+                         <br />
+                         
+                  </div>
+                  <div class="col-md-4">
+                    <label for="pur_total" style="font-size:12px;">Total Amt</label>
+                    <input type="text" placeholder="" data-name="gross_amt" name="pur_total" style="width:40%;"/>
+                        <br />
+                     <label for="" style="font-size:12px;">Addl Disc</label>
+                     <input type="text" placeholder="" data-name="disc_amt" name="" style="width:40%;"/>
+                        <br /> 
+                        <label for="pur_sgst_amt" style="font-size:12px;">SGST Amt</label>
+                      <input type="text" placeholder="" data-name="gst_amt" name="" style="width:40%;"/>
+                        <br />
+                        <label for="pur_cgst_amt" style="font-size:12px;">CGST Amt</label>
+                    <input type="text" placeholder="" data-name="gst_amt" name="" style="width:40%;"/>
+                        <br />  
+                        <label for="pur_igst_amt" style="font-size:12px;">IGST Amt</label>
+                    <input type="text" placeholder="" data-name="gst_amt" name="" style="width:40%;"/>
+                        
+                 </div>
+                 
+                </div>
+                <label for="totalamount" style="color: red; font-size:15px;margin-left: 40%;"><u>Grand Total</u></label>
+                     <input type="text" placeholder="" data-name="grand_total" name="grandtotal" style="width:30%;"/> 
+              
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+        <div class="btn1" style="margin-left:7%;">
+          <button
+            style="
+              color: aliceblue;
+              width: 150px;
+              height: 50px;
+              font-weight: 900;
+            "
+            class="btn btn-secondary" 
+            id="submit"
+          >
+          <i class="fa-regular fa-plus"></i>
+          Submit
+          </button>
+          <a href="#"
+            ><button
+              style="
+                color: aliceblue;
+                width: 150px;
+                height: 50px;
+                font-weight: 900;
+              "
+              class="btn btn-success"
+              id="generate-bill"
+            >
+            <i class="fa-duotone fa-money-bill-1-wave"></i>
+              Update
+            </button></a
+          >
+          <button
+            id="hold-save"
+            style="width: 150px; height: 50px; font-weight: 900"
+            class="btn btn-primary"
+          >
+          <i class="fa-solid fa-floppy-disk"></i>
+            Delete
+          </button>
+          <button
+            style="
+              color: aliceblue;
+              width: 150px;
+              height: 50px;
+              font-weight: 900;
+            "
+            class="btn btn-info"
+          >
+          <i class="fa-sharp fa-solid fa-arrow-rotate-left"></i>
+            Print
+          </button>
+          <button
+            style="
+              color: aliceblue;
+              width: 150px;
+              height: 50px;
+              font-weight: 900;
+            "
+            id="clr-btn"
+            class="btn btn-warning"
+          >
+          <i class="fa fa-trash"></i>
+            Clear
+          </button>
+          <a href="{% url 'exit_bill' %}"
+            >
+            <button
+              style="
+                color: aliceblue;
+                width: 150px;
+                height: 50px;
+                font-weight: 900;
+              "
+              class="btn btn-danger"
+            >
+            <i class="fa-sharp fa-solid fa-circle-xmark"></i>
+              Exit
+            </button></a
+          >
+        </div>
+        
+        
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <script>
+      const debounce = function (cb, timeout = 1000) {
+        let refID;
+        return function () {
+          const self = this;
+          const args = arguments;
+          clearTimeout(refID);
+          refID = setTimeout(() => cb.apply(self, args), timeout);
+        };
+      };
+
+      $(document).ready(function () {
+        const key_name_pair = {
+          pur_bill_no: "pur_bill_no",
+          barcode: "pur_barcode",
+          product_description: "pur_product_description",
+          article_no: "pur_article_no",
+          hsn_no: "pur_hsn_no",
+          size: "pur_size",
+          qty: "pur_qty",
+          free: "pur_free",
+          p_price: "pur_p_Price",
+          mrp: "pur_mrp",
+          tax: "pur_tax",
+          cess: "pur_cess",
+          disc1: "pur_disc1",
+          d_Amt1: "pur_d_Amt1",
+          disc2: "pur_disc2",
+          d_Amt2: "pur_d_Amt2",
+          l_Cost: "pur_l_Cost",
+          tot_Cost: "pur_tot_Cost",
+          s_Price: "pur_s_Price",
+          total: "pur_total",
+          marg: "pur_marg",
+        };
+
+        const customer_key_name_pair = {
+          trans_date: "pur_trans_date",
+          gstin: "pur_gstin",
+          pur_bill_no: "pur_bill_no",
+          bill_type: "pur_bill_type",
+          supplier_name: "pur_supplier_name",
+          total_qty: "pur_total_qty",
+          gross_amt: "pur_gross_amt",
+          disc_amt: "pur_disc_amt",
+          gst_amt: "pur_gst_amt",
+          tcs: "pur_tcs",
+          o_charge: "pur_o_charge",
+          o_disc: "pur_o_disc",
+          grand_total: "pur_grand",
+        };
+
+        function addProductToBill(fields) {
+          const tbody = $("#bill-items tbody");
+
+          if (!fields.barcode) return;
+
+          let tr = $("<tr />").data("data", fields);
+
+          $(tr).append($("<td />").text($(tbody).find('tr').length + 1));
+          // $(tr).append($("<td />").html(`
+          //   <div>
+          //     <input type="number" min="0" value="${fields.slno}" class="slno-field>"
+          //   </div>
+          // `));
+          $(tr).append($("<td />").text(fields.barcode || ''));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="product_description" type="text" value="${fields.product_name || ''}" data-value="${fields.product_name || ''}" class="product-description-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="article_no" type="number" min="0" value="${fields.article_no || 0}" data-value="${fields.article_no || 0}" class="article-no-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="hsn_no" type="number" min="0" value="${fields.hsn_no || 0}" data-value="${fields.hsn_no || 0}" class="hsn-no-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="size" type="text" value="${fields.size || ''}" class data-value="${fields.size || ''}" class="size-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="qty" type="number" min="0" value="${fields.qty || 1}" data-value="${fields.qty || 1}" class="qty-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="free" type="number" min="0" value="${fields.free || 0}" data-value="${fields.free || 0}" class="free-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="p_price" type="number" min="0" value="${fields.p_Price || 0}" data-value="${fields.p_Price || 0}" class="p-Price-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="mrp" type="number" min="0" value="${fields.mrp || 0}" data-value="${fields.mrp || 0}" class="mrp-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="tax" type="number" min="0" value="${fields.tax || 0}" data-value="${fields.tax || 0}" class="tax-field">
+            </div>
+          `));
+          // $(tr).append($("<td /").html(`
+          // <div>
+          //   <input data-name="cess" type="number" min="0" value="${fields.cess}" class=" data-value="${fields.cess}" class="cess-field">
+          // </div>
+          // `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="disc1" type="number" min="0" value="${fields.disc1 || 0}" data-value="${fields.disc1 || 0}" class="disc1-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="d_Amt1" type="number" min="0" value="${fields.d_Amt1 || 0}" data-value="${fields.d_Amt1 || 0}" class="d_Amt1-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="disc2" type="number" min="0" value="${fields.disc2 || 0}" data-value="${fields.disc2 || 0}" class="disc2-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="d_Amt2" type="number" min="0" value="${fields.d_Amt2 || 0}" data-value="${fields.d_Amt2 || 0}" class="d_Amt2-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="l_Cost" type="number" min="0" value="${fields.l_Cost || 0}" data-value="${fields.l_Cost || 0}" class="l_cost-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="tot_Cost" type="number" min="0" value="${fields.tot_Cost || 0}" data-value="${fields.tot_Cost || 0}" class="tot-cost-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="s_Price" type="number" min="0" value="${fields.s_Price || 0}" data-value="${fields.s_Price || 0}" class="s_Price-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="total" type="number" min="0" value="${fields.total || 0}" data-value="${fields.total || 0}" class="total-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="marg" type="number" min="0" value="${fields.marg || 0}" data-value="${fields.marg || 0}" class="marg-field">
+            </div>
+          `));
+
+          $(tbody).append(tr);
+        }
+
+        function getBillData() {
+          const name = $('input[name="custname"]').val();
+          const email = $('input[name="custemail"]').val();
+          const phone = $('input[name="custphone"]').val();
+
+          const tbody = $("#bill-items tbody");
+          let products = [];
+          $(tbody)
+            .children("tr")
+            .each(function (i, tr) {
+              products.push($(tr).data("data"));
+            });
+
+          return { name, email, phone, products };
+        }
+
+        function calculateSubTotal() {
+          const items = $("#bill-items tbody tr");
+          let total = 0;
+
+          $(items).each(function (i, item) {
+            let { quantity, price } = $(item).data("data");
+            total += price * quantity;
+          });
+          $('[name="subtotal"]').val(total).attr("readonly", true);
+          $('[name="grandtotal"]').val(total).attr("readonly", true);
+        }
+
+        function calculateTax() {
+          const items = $("#bill-items tbody tr");
+          let tax = 0;
+
+          $(items).each(function (i, item) {
+            let { quantity, taxamount } = $(item).data("data");
+            tax += taxamount * quantity;
+          });
+          $('[name="totaltax"]').val(tax).attr("readonly", true);
+        }
+
+        function addToBill () {
+          let fields = {
+            pur_bill_no: "",
+            barcode: "",
+            product_description: "",
+            article_no: "",
+            hsn_no: "",
+            size: "",
+            qty: "",
+            free: "",
+            p_Price: "",
+            mrp: "",
+            tax: "",
+            cess: "",
+            disc1: "",
+            d_Amt1: "",
+            disc2: "",
+            d_Amt2: "",
+            l_Cost: "",
+            tot_Cost: "",
+            s_Price: "",
+            total: "",
+            marg: "",
+          };
+
+          let field = {
+            trans_date: "",
+            gstin: "",
+            pur_bill_no: "",
+            bill_type: "",
+            supplier_name: "",
+            total_qty: "",
+            gross_amt: "",
+            disc_amt: "",
+            gst_amt: "",
+            tcs: "",
+            o_charge: "",
+            o_disc: "",
+            grand: "",
+          };
+
+          for (let field in fields) {
+            fields[field] = $(`[name="${field}"]`).val();
+            $(`[name="${field}"]`).val("");
+          }
+
+          addProductToBill(fields);
+        }
+        
+        $("#barcode").on(
+          "input",
+          debounce(function () {
+            let barcode = $(this).val();
+            if (barcode) {
+              let data = {
+                barcode
+              }
+              addProductToBill(data)
+              $(this).val('')
+            }
+          })
+        );
+
+
+        $("#add-btn").click(addToBill);
+
+        $('input[name="custphone"]').on(
+          "input",
+          debounce(function () {
+            let phone = $(this).val();
+            if (phone) {
+              $.ajax({
+                url: "/api/customer",
+                method: "POST",
+                data: {
+                  csrfmiddlewaretoken: "{{ csrf_token }}",
+                  phone,
+                },
+                success: function (resp) {
+                  const data = resp.data[0];
+                  if (!data) {
+                    $('input[name="custphone"]').val(phone);
+                    return;
+                  }
+
+                  for (let key in customer_key_name_pair) {
+                    $(`[name="${customer_key_name_pair[key]}"]`).val(data[key]);
+                  }
+                },
+              });
+            }
+          })
+        );
+
+        $('input[name="custname"]').change(function () {
+          $('input[name="custname"]').val($(this).val());
+        });
+
+        $('input[name="custemail"]').change(function () {
+          $('input[name="custemail"]').val($(this).val());
+        });
+
+        $("#hold-save").click(function () {
+          let data = getBillData();
+          data.hold = true;
+
+          $.ajax({
+            url: "/api/bill",
+            method: "POST",
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              data: JSON.stringify(data),
+            },
+            success: function (data) {
+              alert(data.cart_id);
+            },
+          });
+        });
+
+        $("#bill-search").click(function () {
+          let cart_id = $("#bill-no").val();
+          if (!cart_id.trim()) return;
+
+          $.ajax({
+            url: "/api/bill",
+            method: "GET",
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              data: cart_id,
+            },
+            success: function (data) {
+              const { cart_id, customer, products } = data;
+
+              $('[name="custphone"]').val(customer.phone);
+              $('[name="custname"]').val(customer.name);
+              $('[name="custemail"]').val(customer.email);
+
+              for (let product of products) {
+                let fields = {
+                  pur_bill_no: purchase_product.pur_bill_no,
+                  barcode: purchase_product.barcode,
+                  product_description: purchase_product.product_description,
+                  article_no: purchase_product.article_no,
+                  hsn_no: purchase_product.hsn_no,
+                  size: purchase_product.size,
+                  qty: purchase_product.qty,
+                  free: purchase_product.free,
+                  p_price: purchase_product.p_price,
+                  mrp: purchase_product.mrp,
+                  tax: purchase_product.tax,
+                  cess: purchase_product.cess,
+                  disc1: purchase_product.disc1,
+                  d_Amt1: purchase_product.d_Amt1,
+                  disc2: purchase_product.disc2,
+                  d_Amt2: purchase_product.d_Amt2,
+                  l_Cost: purchase_product.l_Cost,
+                  tot_Cost: purchase_product.tot_Cost,
+                  s_Price: purchase_product.s_Price,
+                  total: purchase_product.total,
+                  marg: puchase_product.marg,
+                };
+
+                addProductToBill(fields);
+              }
+            },
+          });
+        });
+
+        $("#clr-btn").click(function () {
+          $("input").val("");
+          $("#bill-items tbody tr").remove();
+        });
+
+        $("#generate-bill").click(function (e) {
+          e.preventDefault();
+          let data = getBillData();
+          data.hold = false;
+          data.coupon_code = $('[name="coupon"]').data('code')
+
+          $.ajax({
+            url: "/api/bill",
+            method: "POST",
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              data: JSON.stringify(data),
+            },
+            success: function (data) {
+              location.href = "{% url 'demo' %}?cart_id=" + data.cart_id;
+            },
+          });
+        });
+
+        $("#print-btn").click(function () {
+          window.print();
+        });
+
+        $("#bill-items tbody").on('change', '[data-name]', function() {
+          let oldValue = $(this).data('value')
+          let newValue = $(this).val()
+          $(this).data('value', newValue)
+
+          if($(this).data('name') === 'p_price') {
+            let totalAmt = Number($('[data-name="gross_amt"]').val()) || 0;
+            let newTotal = totalAmt - (Number(oldValue) || 0) + (Number(newValue) || 0)
+            $('[data-name="gross_amt"]').val(newTotal)
+          }
+        })
+
+        $('#submit').click(function() {
+          const trs = $("#bill-items tbody tr");
+          const products = []
+          let total_qty = 0
+          $(trs).each(function(i, tr) {
+            const product = {}
+            $(tr).find('input[data-name]').each(function(ii, field) {
+              const {name, value} = $(field).data();
+              product[name] = value
+            })
+            total_qty += Number(product.qty)
+            products.push(product)
+          })
+
+          let gst_amt = 0
+          $('[data-name="gst_amt"]').each(function(i, item) {
+            gst_amt += (Number($(item).val()) || 0)
+          })
+
+          const purchase = {
+            trans_date: $('[data-name="trans_date"]').val(),
+            gstin: $('[data-name="gstin"]').val(),
+            pur_bill_no: $('[data-name="pur_bill_no"]').val(),
+            bill_type: $('[data-name="bill_type"]').val(),
+            supplier_name: $('[data-name="supplier_name"]').val(),
+            gross_amt: $('[data-name="gross_amt"]').val(),
+            disc_amt: $('[data-name="disc_amt"]').val(),
+            tcs: $('[data-name="tcs"]').val(),
+            o_charge: $('[data-name="o_charge"]').val(),
+            o_disc: $('[data-name="o_disc"]').val(),
+            grand_total: $('[data-name="grand_total"]').val(),
+            total_qty: total_qty,
+            gst_amt: gst_amt,
+          }
+
+          $.ajax({
+            method: 'POST',
+            data: {
+              purchase: JSON.stringify(purchase), 
+              products: JSON.stringify(products), 
+              csrfmiddlewaretoken: "{{ csrf_token }}"
+            },
+            success: function(resp) {
+              console.log(resp)
+            }
+          })
+        })
+      });
+    </script>
+
+  </body>
+</html>

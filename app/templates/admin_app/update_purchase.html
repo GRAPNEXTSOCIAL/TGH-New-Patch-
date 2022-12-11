@@ -1,0 +1,15 @@
+{% extends 'admin_app/index.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="row">
+        <h2 class="alert alert-info">Update Purchase Data</h2>
+        <form action="" method="post" form="update_purchase_form">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="btn btn-success" value="Update">
+            <a href="{% url 'list-purchase' %}" class="btn btn-info">Back to Purchase List</a>
+        </form>
+    </div>
+
+{% endblock %}

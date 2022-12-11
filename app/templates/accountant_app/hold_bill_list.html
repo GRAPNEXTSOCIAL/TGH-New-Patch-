@@ -1,0 +1,26 @@
+{% extends 'accountant_app/index.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Holded Bills</h1>
+    <div class="table-wrapper">
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">BILL NO</th>
+
+                </tr>
+            </thead>
+            {% for hb in hold_bill_list %}
+            <tbody>
+                <tr>
+                    <td scope="row">{{ hb.id }}</td>
+                    <td scope="row">{{ hb.cart_id }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
