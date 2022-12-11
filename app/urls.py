@@ -1,12 +1,9 @@
-from re import template
 from django.conf import settings
-from django.urls import include, path, reverse
+from django.urls import path
 from app import views
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from .forms import LoginForm, MyPasswordChangeForm, MyPasswordResetForm, MySetPasswordForm
-from django.views.generic import RedirectView
-from django.contrib import admin
 from . import api
 
 

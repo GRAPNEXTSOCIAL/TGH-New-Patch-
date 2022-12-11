@@ -17,9 +17,9 @@ import json
 
 
 def home(request):
-    # view = ProductView()
-    # return view.get(request)
-    return redirect('login')
+    view = ProductView()
+    return view.get(request)
+    # return redirect('login')
 # Admin Views
 
 class CustomLoginView(auth_views.LoginView):

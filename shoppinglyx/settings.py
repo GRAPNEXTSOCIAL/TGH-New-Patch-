@@ -153,3 +153,8 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 40
+SESSION_SAVE_EVERY_REQUEST = True
+LOGOUT_REDIRECT_URL = '/logout/'
+
