@@ -9,12 +9,9 @@
             <div class="row" style="background-color: whitesmoke">
                 {% for pi in product.image_set.all %}
                 <div class="col-md-2 m-3 p-3 mx-2">    
-                        <a href="{{ pi.pimage.url }}">
-                            <img src="{{ pi.pimage.url }}" class="img-fluid btn" style="height: 80px; object-fit: contain" alt="">
-                        </a>
-                    <!-- {% if pi.pimage in pimage %} -->
-                        
-                    <!-- {% endif %} -->
+                    <a href="{{ pi.pimage.url }}">
+                        <img src="{{ pi.pimage.url }}" class="img-fluid btn" style="height: 80px; object-fit: contain" alt="">
+                    </a>
                 </div>
                 {% endfor %}
             </div>

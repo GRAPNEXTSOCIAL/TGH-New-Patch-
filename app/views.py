@@ -6,9 +6,7 @@ from .models import *
 from .forms import *
 from django.db.models import Q
 from django.http import JsonResponse
-# For Function based login view
 from django.contrib.auth.decorators import login_required
-# For Class based login view
 from django.utils.decorators import method_decorator
 from django.contrib.auth import views as auth_views
 from .models import Product, Cart, Customer, OrderPlaced, User
@@ -793,20 +791,6 @@ def address(request):
 def orders(request):
     op = OrderPlaced.objects.filter(user=request.user)
     return render(request, 'app/orders.html', {'order_placed':op})
-
-#procuct view
-#mobile Cold Drinks
-# def mobile(request, data=None):
-#     mobiles = []
-#     if data == None:
-#         mobiles = Product.objects.filter(category='M')
-#     elif data == 'Redmi' or data == 'Samsung' or data == 'Iphone' or data == 'Vivo' or data == 'Oppo':
-#         mobiles = Product.objects.filter(category='M').filter(brand=data)
-#     elif data =='Below':
-#         mobiles = Product.objects.filter(category='M').filter(discounted_price__lt=10000)
-#     elif data =='Above':
-#         mobiles = Product.objects.filter(category='M').filter(discounted_price__gt=10000)
-#     return render(request, 'app/mobile.html', {'mobiles':mobiles})
 
 def admin_home(request):
     return render(request, 'admin_app/admin_home.html')

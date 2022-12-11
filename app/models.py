@@ -6,8 +6,6 @@ from colorfield.fields import ColorField
 from django.utils.safestring import mark_safe
 
 
-# Create your models here.
-
 MANAGER='MANAGER'
 CASHIER='CASHIER'
 ACCOUNTANT = 'ACCOUNTANT'
@@ -167,7 +165,6 @@ class Product(models.Model):
 
 class Image(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    # title = models.ForeignKey(Product, on_delete=models.CASCADE)
     pimage = models.ImageField(upload_to='productimage')
 
     def __str__(self):

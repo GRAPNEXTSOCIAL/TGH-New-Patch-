@@ -1,12 +1,8 @@
-from dataclasses import field, fields
-from pyexpat import model
-# from tkinter import Widget
-# from tkinter.tix import Select
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordChangeForm, PasswordResetForm, SetPasswordForm
-from django.utils.translation import gettext, gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import password_validation
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm
 from .models import *
 
 
@@ -416,15 +412,3 @@ class PaymentModeForm(ModelForm):
             'By_UPI' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Total Quantity'})
         }
 
-
-
-# class UserForm(UserCreationForm):
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email', 'password1', 'password2']
-#         Widgets ={
-#             'username' :forms.TextInput(attrs={'class':'form-control'}), 
-#             'email' :forms.EmailInput(attrs={'class':'form-control'}), 
-#             'password1' :forms.PasswordInput(attrs={'class':'form-control'}), 
-#             'password2' :forms.PasswordInput(attrs={'class':'form-control'})
-#         }

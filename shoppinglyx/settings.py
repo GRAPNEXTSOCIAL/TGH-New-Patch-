@@ -13,10 +13,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 
-# import django_heroku
-# import dj_database_url
-# from decouple import config
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -96,8 +92,6 @@ DATABASES = {
         'PASSWORD': 'e0577da0070fc69645a8e2e685f2c34941c79c30b2e1749e8f9bba5d10fdab27',
         'HOST': 'ec2-35-170-21-76.compute-1.amazonaws.com',
         'PORT': '5432', 
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3', 
     }
 }
 
@@ -153,12 +147,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-# STATICFILES_DIRS = ((os.path.join(BASE_DIR, 'static')), )
 AUTH_USER_MODEL = 'app.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
-
-# django_heroku.settings(locals())

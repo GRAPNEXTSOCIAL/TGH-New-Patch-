@@ -458,11 +458,6 @@ crossorigin="anonymous"
           let tr = $("<tr />").data("data", fields);
 
           $(tr).append($("<td />").text($(tbody).find('tr').length + 1));
-          // $(tr).append($("<td />").html(`
-          //   <div>
-          //     <input type="number" min="0" value="${fields.slno}" class="slno-field>"
-          //   </div>
-          // `));
           $(tr).append($("<td />").text(fields.barcode || ''));
           $(tr).append($("<td />").html(`
             <div>
@@ -509,11 +504,6 @@ crossorigin="anonymous"
               <input data-name="tax" type="number" min="0" value="${fields.tax || 0}" data-value="${fields.tax || 0}" class="tax-field">
             </div>
           `));
-          // $(tr).append($("<td /").html(`
-          // <div>
-          //   <input data-name="cess" type="number" min="0" value="${fields.cess}" class=" data-value="${fields.cess}" class="cess-field">
-          // </div>
-          // `));
           $(tr).append($("<td />").html(`
             <div>
               <input data-name="disc1" type="number" min="0" value="${fields.disc1 || 0}" data-value="${fields.disc1 || 0}" class="disc1-field">
