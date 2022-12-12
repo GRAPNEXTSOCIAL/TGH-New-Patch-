@@ -1048,88 +1048,88 @@ def delete_data(request, id):
     if request.method =='POST':
         pd=Product.objects.get(pk=id)
         pd.delete()
-        return HttpResponseRedirect('admin_app/products.html')
+        return redirect(all_products)
 
 # Cart Delete(admin)
 def cart_delete(request, id):
     if request.method =='POST':
         cd=Cart.objects.get(pk=id)
         cd.delete()
-        return HttpResponseRedirect('admin_app/carts.html')
+        return redirect(all_carts)
 
 # Customer Delete(admin)
 def customer_delete(request, id):
     if request.method =='POST':
         cd=Customer.objects.get(pk=id)
         cd.delete()
-        return HttpResponseRedirect('admin_app/customers.html')
+        return redirect(all_customer)
 
 # Order_Placed Delete(admin)
 def op_delete(request, id):
     if request.method =='POST':
         cd=OrderPlaced.objects.get(pk=id)
         cd.delete()
-        return HttpResponseRedirect('admin_app/order_placed.html')
+        return redirect(all_orderplaced)
 
 # Users Delete(admin)
 def u_delete(request, id):
     if request.method =='POST':
         cd=User.objects.get(pk=id)
         cd.delete()
-        return HttpResponseRedirect('admin_app/users.html')
+        return redirect(all_users)
 
 # Coupon Delete(admin)
 def c_delete(request, id):
     if request.method =='POST':
         cd=Coupon.objects.get(pk=id)
         cd.delete()
-        return HttpResponseRedirect('admin_app/coupon.html')
+        return redirect(all_coupon)
 
 # Tax delete(delete)
 def tax_delete(request, id):
     if request.method =='POST':
         tx = Tax.objects.get(pk=id)
         tx.delete()
-        return render(request, 'admin_app/tax.html')
+        return redirect(all_tax)
 
 # Supplier Delete(admin)
 def supplier_delete(request, id):
     if request.method =='POST':
         cd=Supplier.objects.get(pk=id)
         cd.delete()
-        return HttpResponseRedirect('admin_app/supplier.html')
+        return redirect(all_supplier)
 
 # Group Delete
 def group_delete(request, id):
     if request.method == 'POST':
         gr = Itemgroup.objects.get(pk=id)
         gr.delete()
-        return render(request, 'admin_app/group.html')
+        return redirect(all_group)
 
 # color delete
 def color_delete(request, id):
     if request.method =='POST':
         tx = Color.objects.get(pk=id)
         tx.delete()
-        return render(request, 'admin_app/color.html')
+        return redirect(all_color)
 
 # size delete
 def size_delete(request, id):
     if request.method =='POST':
         tx = Size.objects.get(pk=id)
         tx.delete()
-        return render(request, 'admin_app/size.html')
+        return redirect(all_size)
 
 # Category delete
 def category_delete(request, id):
     if request.method == 'POST':
         tx = Category.objects.get(pk=id)
         tx.delete()
-        return render(request, 'admin_app/category.html')
+        return redirect(all_category)
 
 # Purchase delete
 def purchase_delete(request, id):
     if request.method == 'POST':
         tx = Purchase.objects.get(pk=id)
         tx.delete()
-        return render(request, 'admin_app/purchase.html')
+        return redirect(all_purchase)

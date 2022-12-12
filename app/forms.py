@@ -85,7 +85,8 @@ class ProductForm(ModelForm):
             'title', 
             'hsn_no', 
             'item_size', 
-            'item_color', 
+            'item_color',
+            'color_name',  
             'actual_mrp', 
             'purchase_price', 
             'selling_price', 
@@ -114,7 +115,8 @@ class ProductForm(ModelForm):
             'title' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Product Name'}), 
             'hsn_no' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Enter the HSN_NO'}), 
             'item_size' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
-            'item_color' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
+            'item_color' :forms.Select(attrs={'class':'form-control form-control-color', 'placeholder':'Select'}), 
+            'color_name' :forms.Select(attrs={'class':'form-control', 'placeholder':'Please Enter the Color_Name'}), 
             'purchase_price' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Purchase Price'}), 
             'actual_mrp' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Actual Mrp Rs.'}), 
             'selling_price' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Selling Price'}),
@@ -240,12 +242,14 @@ class ColorForm(ModelForm):
     class Meta:    
         model = Color
         fields = [
-            'color_code', 
+            'color_code',
+            'color_name',  
             'item_color'
         ]
         widgets = {
             'color_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Color Code'}), 
-            'item_color' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Color'})
+            'color_name' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Color-Name'}), 
+            'item_color' :forms.TextInput(attrs={'class':'form-control form-control-color', 'placeholder':'Please Enter the Color'})
         }
 
 class SizeForm(ModelForm):

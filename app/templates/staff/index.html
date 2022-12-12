@@ -233,7 +233,7 @@
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{% url 'add-purchase-insert' %}">
+            <a href="{% url 'bill-purchase' %}">
               <i class="bi bi-circle"></i><span>ADD PURCHASE</span>
             </a>
           </li>
@@ -257,6 +257,12 @@
           <li>
             <a href="{% url 'all-hold-boll' %}">
               <i class="bi bi-circle"></i><span>HOLD BILLS</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'bill-purchase' %}">
+              <i class="bi bi-grid"></i>
+              <span>Purchase Bill</span>
             </a>
           </li>
         </ul>

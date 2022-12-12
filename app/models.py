@@ -65,6 +65,7 @@ TAX_TYPE_CHOICES = (
 
 class Color(models.Model):
     color_code = models.CharField(max_length=5)
+    color_name = models.CharField(max_length=100)
     item_color = ColorField()
 
     def __str__(self) -> str:
@@ -115,10 +116,11 @@ class Itemgroup(models.Model):
     item_group_code = models.IntegerField()
     item_group_name = models.CharField(max_length=50)
     item_group_description = models.CharField(max_length=200)
-    item_group_image = models.ImageField(blank=True, upload_to='group_img')
+    item_group_image = models.ImageField(upload_to='group_img')
 
     def __str__(self) -> str:
         return self.item_group_name
+        
 
 class Category(models.Model):
     item_group_name = models.ForeignKey(Itemgroup, on_delete=models.CASCADE, null=True)
@@ -139,7 +141,8 @@ class Product(models.Model):
     title = models.CharField(max_length=100)
     hsn_no = models.CharField(max_length=100)   
     item_size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
-    item_color = ColorField()    
+    item_color = ColorField() 
+    color_name = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)   
     actual_mrp = models.FloatField()
     purchase_price = models.FloatField()
     selling_price = models.FloatField()

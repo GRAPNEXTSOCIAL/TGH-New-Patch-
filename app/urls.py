@@ -46,22 +46,22 @@ urlpatterns = [
     path('dashboard', views.dashboard, name="dashboard"),
 
     path('products', views.all_products, name="list-products"),
-    path('delete/<int:id>/', views.delete_data, name='deletedata'),
+    path('delete/<int:id>', views.delete_data, name='deletedata'),
     path('<int:id>/', views.update_data, name='update_data'),
 
     path('carts', views.all_carts, name="list-carts"),
-    path('deletes/<int:id>/', views.cart_delete, name="deletesdata"),  
+    path('deletes/<int:id>', views.cart_delete, name="deletesdata"),  
 
     path('customers', views.all_customer, name="list-customers"),
-    path('cudelete/<int:id>/', views.customer_delete, name="customer-delete"), 
+    path('cudelete/<int:id>', views.customer_delete, name="customer-delete"), 
     path('update/<int:id>/', views.update_cust, name= "customer-update"), 
 
     path('order-placed', views.all_orderplaced, name="list-order_placed"),
-    path('opdelete/<int:id>/', views.op_delete, name="op-delete"), 
+    path('opdelete/<int:id>', views.op_delete, name="op-delete"), 
     path('opupdate/<int:id>/', views.op_update, name='op-update'), 
 
     path('users', views.all_users, name="list-users"),
-    path('udelete/<int:id>/', views.u_delete, name="u-delete"),
+    path('udelete/<int:id>', views.u_delete, name="u-delete"),
     path('user_update/<int:id>/', views.update_cust, name="user-update"),  
 
     path('coupons', views.all_coupon, name="list-coupons"),
@@ -73,27 +73,27 @@ urlpatterns = [
     path('updatetax/<int:id>/', views.update_tax, name="update-tax"),    
 
     path('colors', views.all_color, name="list-color"), 
-    path('colordelete/<int:id>/', views.color_delete, name="color-delete"), 
+    path('colordelete/<int:id>', views.color_delete, name="color-delete"), 
 
     path('sizes', views.all_size, name="list-size"),
     path('sizedalate/<int:id>/', views.size_delete, name="size-delete"),
 
     path('itemgroup', views.all_group, name="list-group"), 
-    path('groupdelete/<int:id>/', views.group_delete, name="group-delete"), 
+    path('groupdelete/<int:id>', views.group_delete, name="group-delete"), 
     path('updategroup/<int:id>/', views.update_group, name="update-group"), 
 
     path('category', views.all_category, name="list-category"), 
-    path('categorydelete/<int:id>/', views.category_delete, name='category-delete'), 
+    path('categorydelete/<int:id>', views.category_delete, name='category-delete'), 
     path('updatecategory/<int:id>/', views.update_category, name="update-category"), 
 
     path('purchase', views.all_purchase, name="list-purchase"), 
-    path('purchasedelete/<int:id>/', views.purchase_delete, name='purchase-delete'), 
+    path('purchasedelete/<int:id>', views.purchase_delete, name='purchase-delete'), 
     path('updatepurchase/<int:id>/', views.update_purchase, name="update-purchase"),
 
     path('purchase_product', views.all_purchase_product, name='list-purchase-product'),  
 
     path('supplier', views.all_supplier, name="list-supplier"),
-    path('supplierdelete/<int:id>/', views.supplier_delete, name="supplier-delete"), 
+    path('supplierdelete/<int:id>', views.supplier_delete, name="supplier-delete"), 
     path('supplierupdate/<int:id>/', views.supplier_update, name='supplier-update'), 
 
     
@@ -176,4 +176,11 @@ urlpatterns = [
     path('api/bill', api.save_bill),
     path('api/taxes', api.taxes),
     path('api/check_coupon', api.check_coupon),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
+# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL,
+                            document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                            document_root=settings.MEDIA_ROOT)
