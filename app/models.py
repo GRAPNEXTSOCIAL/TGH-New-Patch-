@@ -142,7 +142,7 @@ class Product(models.Model):
     hsn_no = models.CharField(max_length=100)   
     item_size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
     item_color = ColorField() 
-    color_name = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)   
+    color_name = models.CharField(max_length=50)   
     actual_mrp = models.FloatField()
     purchase_price = models.FloatField()
     selling_price = models.FloatField()
