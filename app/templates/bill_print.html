@@ -78,7 +78,7 @@
           </h6>
           </div>     
         <center><b><label class="billno">Bill no :- </label><span name="billno"></span></b></center>
-        <center><b><label>GSTIN :- </label></b></center>
+        <center><b><label>GSTIN :- 21EHQPS7845G2ZR </label></b></center>
         <h6>========================================</h6>
         <h6>========================================</h6>
 
@@ -106,7 +106,6 @@
               <th>Product</th>
               <th>Qty</th>
               <th>Price</th>
-              <th>Sl.No</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -199,6 +198,7 @@
             }
 
             let total = calculateSubTotal(products);
+            console.log(total)
             $(".price-calc-area").html("");
 
             $(".price-calc-area").append(`
@@ -285,7 +285,7 @@
         }
 
         function calculateSubTotal(products) {
-          return products.reduce((a, c) => a + c.discounted_price, 0);
+          return products.reduce((a, c) => a + (c.discounted_price * c.quantity), 0);
         }
 
         function calculateTax(total, taxes) {

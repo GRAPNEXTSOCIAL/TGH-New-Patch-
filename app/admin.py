@@ -33,7 +33,6 @@ class ColorModelAdmin(admin.ModelAdmin):
     list_display = [
         'id', 
         'color_code',
-        'color_name', 
         'item_color',  
         'color_tag'
     ]
@@ -89,7 +88,6 @@ class ProductModelAdmin(admin.ModelAdmin):
         'item_size',
         'item_color',  
         'color_tag',
-        'color_name', 
         'actual_mrp',
         'purchase_price', 
         'selling_price',

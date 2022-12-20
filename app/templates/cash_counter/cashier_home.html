@@ -57,7 +57,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               {% if request.user.is_authenticated %}
                <li class="nav-item dropdown mx-2">
-                  <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold; text-transform: uppercase;">
+                  <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold; text-transform: uppercase;background-color: rgb(10, 10, 90);color: #fff;border-radius: 20%;">
                     {{request.user.username|capfirst}}
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="profileDropdown">

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta data-name="" name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+
+    <!--Owl Carousel CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}" />
+
+    <!--FontAwesome CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/all.min.css' %}" />
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
+
+    <title>THE GROCERY HOUSE {% block title %} {% endblock title %}</title>
+    <!--FontAwesome CSS-->
+    <link
+      rel="stylesheet"
+      href="{% static 'app/assets/libs/flot/css/float-chart.css' %}"
+    />
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="{% static 'app/dist/css/style.min.css' %}" />
+
+    <link href="{% static 'assetss/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assetss/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assetss/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assetss/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assetss/css/style.css' %}" rel="stylesheet">
+  <style>
+    svg{
+    font-size: 120px;
+    padding-top: -50px;
+ }
+ .copy{
+    fill: none;
+    stroke: #fff;
+    stroke-width: 5px;
+    stroke-dasharray: 15% 40%;
+    stroke-dashoffset: 0%;
+    animation: textanimation 6s linear infinite;
+ }
+ @keyframes textanimation{
+    100%{
+        stroke-dashoffset: -35%;
+    }
+ }
+.copy1{
+    stroke: green;
+    animation-delay: -1s;
+ }
+.copy2{
+    stroke: green;
+    animation-delay: -2s;
+ }
+ .copy3{
+    stroke: green;
+    animation-delay: -3s;
+ }
+  .copy4{
+    stroke: green;
+    animation-delay: -4s;
+ }
+ .copy5{
+    stroke: green;
+    animation-delay: -5s;
+ }
+  </style>
+  </head>
+
+  <body>
+
+    <!-- Jquery -->
+<script
+src="https://code.jquery.com/jquery-3.5.1.min.js"
+integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+crossorigin="anonymous"
+></script>
+<!-- Bootstrap Bundle with Popper -->
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+crossorigin="anonymous"
+></script>
+<script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'app/js/all.min.js' %}"></script>
+<script src="{% static 'app/js/myscript.js' %}"></script>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+          <img src="{% static 'assetss/img/logo.png' %}" alt="">
+          <span class="d-none d-lg-block">THE GROCERY HOUSE</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+      </div><!-- End Logo -->
+  
+      
+      <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+  
+          <li class="nav-item d-block d-lg-none">
+            <a class="nav-link nav-icon search-bar-toggle " href="#">
+              <i class="bi bi-search"></i>
+            </a>
+          </li><!-- End Search Icon-->
+  
+          <li class="nav-item dropdown pe-3">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              {% if request.user.is_authenticated %}
+               <li class="nav-item dropdown mx-2">
+                  <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold; text-transform: uppercase;background-color: blue;color: #fff;">
+                    {{request.user.username|capfirst}}
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>                 
+                    <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
+                  </ul>
+                </li>
+             </div>
+              {% endif %}
+              </ul>       <!-- End Profile Dropdown Items -->
+          </li> End Profile Nav -->
+  
+        </ul>
+      </nav><!-- End Icons Navigation -->
+  
+  </header><!-- End Header -->
+    <br><br><br>
+
+
+        <div class="top" style="margin-left:20px;">
+          <div class="row">
+            <div class="col-md-3">
+              <label for=""><span style="font-weight: bold;">Supplier:</label>
+                <select data-name="supplier" name="supplier" style="width:50%;" required>
+                  <option value="">Select Supplier</option>
+                  {% for s in supplier_all %}
+                    <option value="{{ s.id }}">{{ s.supplier }}</option>
+                  {% endfor %}
+                </select>
+                  <br>
+                  <label for=""><span style="font-weight: bold;">Manufacturer:</label>
+                    <input type="text" data-name="manufacturer" name="manufacturer" style="width:50%;" required>
+                  <br>
+                  <label for=""><span style="font-weight: bold; color: red;">Group:</label>
+                  <select data-name="group" name="group" style="width:50%;" required>
+                    <option value="">Select Group</option>
+                    {% for g in group_list %}
+                      <option value="{{ g.id }}">{{ g.item_group_name }}</option>
+                    {% endfor %}
+                  </select>
+                  <a href="{% url 'g-insert' %}" class="btn btn-link"><i class="fa-regular fa-plus"></i></a>
+            </div>
+            <div class="col-md-5">
+              <div class="row">
+                <div class="col-md-6">
+                  <label for=""><span style="font-weight: bold;">Category:</label>
+                      <select data-name="category" name="category" style="width:50%;" required>
+                        <option value="">Select category</option>
+                        {% for c in category_list %}
+                          <option value="{{ c.id }}" data-group="{{ c.item_group_name }}">{{ c.category }} ({{ c.item_group_name.item_group_name }})</option>
+                        {% endfor %}
+                      </select>
+                      <a href="{% url 'cat-insert' %}" class="btn btn-link"><i class="fa-regular fa-plus"></i></a>
+                  <br>
+                  <label for=""><span style="font-weight: bold;">Brand:</label>
+                  <input type="text" data-name="brand" name="brand" style="width: 50%;" required>
+                  <br>
+                  <label for=""><span style="font-weight: bold; color: red;">Item Type:</label>
+                    <input type="text" data-name="item_type" name="item_type" style="width: 40%;" required>
+                </div>
+                <div class="col-md-6">
+                  <label for=""><span style="font-weight: bold;">Barcode:</label>
+                    <input type="text" data-name="barcode" name="barcode" style="width:70%;" required>
+                  <br>
+                  <label for=""><span style="font-weight: bold;">Title:</label>
+                    <input type="text" data-name="title" name="title" style="width:50%" required>
+                    <br>
+                    <label for=""><span style="font-weight: bold; color: red;">HSN No:</label>
+                      <input type="text" data-name="hsn_no" name="hsn_no" style="width: 70%;" required>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <label for=""><span style="font-weight: bold;">Item Size:</label>
+                <select data-name="item_size" name="item_size" style="width:50%;" required>
+                  <option value="">Select Size</option>
+                  {% for s in item_sizes %}
+                    <option value="{{ s.id }}">{{ s.item_size }}</option>
+                  {% endfor %}
+                </select>
+                <a href="{% url 'size-insert' %}" class="btn btn-link"><i class="fa-regular fa-plus"></i></a>
+              <br>
+              <label for=""><span style="font-weight: bold;">Item Color:</label>
+                <input type="color" data-name="item_color" name="item_color" style="width: 30%;" required>
+                <label for=""><span style="font-weight: bold;">Actual Mrp:</label>
+                  <input type="text" data-name="actual_mrp" name="actual_mrp" style="width: 20%;" required>
+                  <br>
+                  <label for=""><span style="font-weight: bold; color: red;">Purchase Price:</label>
+                    <input type="text" data-name="purchase_price" name="purchase_price" style="width: 50%;" required>
+            </div>
+            
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <label for=""><span style="font-weight: bold;">Selling Price:</label>
+                <input type="text" data-name="selling_price" name="selling_price" style="width: 50%;" required>
+                <br>
+                <label for=""><span style="font-weight: bold;">Discounted Price:</label>
+                  <input type="text" data-name="discounted_price" name="discounted_price" style="width: 50%;" required>
+                <label for=""><span style="font-weight: bold;">Tax On:</label>
+                    <input type="text" data-name="tax_on" name="tax_on" style="width: 50%;" required>
+            </div>
+            <div class="col-md-2">
+              <label for=""><span style="font-weight: bold;">Gst:</label>
+                <input type="text" data-name="gst" name="gst" style="width: 50%;" required>
+              <label for="" style="font-weight: bold;">Pur Tax Type</label>
+                <input type="text" data-name="purchase_tax_type" name="purchase_tax_type" style="width: 50%;" required>
+                <br>
+                <label for=""><span style="font-weight: bold;">Pur Tax(%):</label>
+                  <input type="text" data-name="purchase_tax" name="purchase_tax" style="width: 50%" required>
+                  <br>
+                  <label for=""><span style="font-weight: bold;">Cess(%):</label>
+                    <input type="text" data-name="cess" name="cess" style="width: 50%" required> 
+            </div>
+            <div class="col-md-2">
+              <label for=""><span style="font-weight: bold;">Selling Tax(%):</label>
+                <input type="text" data-name="selling_tax" name="selling_tax" style="width: 50%" required>
+                <br>
+                <label for=""><span style="font-weight: bold;">Product Purchase Date:</label>
+                  <input type="datetime" data-name="product_purchase_date" name="product_purchase_date" style="width: 50%" required>
+                  <br>
+                  <label for=""><span style="font-weight: bold;">Manufacture Date:</label>
+                    <input type="date" data-name="manufacture_date" name="manufacture_date" style="width: 50%" required>
+                    
+            </div>
+            <div class="col-md-3">
+              <label for=""><span style="font-weight: bold;">Expiry Date:</label>
+                <input type="date" data-name="expiry_date" name="expiry_date" style="width: 50%" required>
+                <br><label for=""><span style="font-weight: bold;">Alertment Date:</label>
+                  <input type="date" data-name="alertment_date" name="alertment_date" style="width: 50%" required>
+                  <br><label for=""><span style="font-weight: bold;">Description:</label>
+                    <input type="text" data-name="description" name="description" style="width: 50%" required>
+            </div>
+            <div class="col-md-2">
+              <label for=""><span style="font-weight: bold;">Product Image:</label>
+                <input type="file" data-name="product_image" name="product_image"  required>
+                
+            </div>
+          </div>
+          <center>
+            <div class="btn">
+              <button class="btn btn-success" type ="button" id="submit">Submit</button>
+              <button class="btn btn-primary">Update</button>
+              <button class="btn btn-danger">Delete</button>
+              <button class="btn btn-warning">Refresh</button>
+              <button class="btn btn-info">Print Barcode</button>
+              <a href="{% url 'exit_bill' %}"><button class="btn btn-danger">Close</button></a>
+            </div>
+          </center>
+          <center>
+            <div class="spc" style="display: flex;">
+              <div class="o">
+                <label for="fname">Barcode:</label><br>
+                <input type="text" id="fname" data-name="" name="" style="width:98%">
+              </div>
+              <div class="o">
+                <label for="fname">Item name:</label><br>
+                <input type="text" id="fname" data-name="" name="fname" style="width:98%">
+              </div>
+              <div class="o">
+                <label for="fname">Supplier:</label><br>
+                <input type="text" id="fname" data-name="" name="fname" style="width:98%">
+              </div>
+              <div class="o">
+                <label for="fname">Group:</label><br>
+                <input type="text" id="fname" data-name="" name="fname" style="width:98%">
+              </div>
+              <div class="o">
+                <label for="fname">Category:</label><br>
+                <input type="text" id="fname" data-name="" name="fname" style="width:98%">
+              </div>
+              <div class="o">
+                <label for="fname">Article No:</label><br>
+                <input type="text" id="fname" data-name="" name="fname" style="width:98%">
+              </div>
+              <div class="o">
+                <label for="fname">Barcode:</label><br>
+                <input type="text" id="fname" data-name="" name="fname" style="width:98%">
+              </div>
+              <div class="o">
+                <label for="fname">Mfg Name:</label><br>
+                <input type="text" id="fname" data-name="" name="fname" style="width:98%">
+              </div>
+              <div class="o">
+                <label for="fname">Size:</label><br>
+                <input type="text" id="fname" data-name="" name="fname" style="width:98%">
+              </div>
+              <div class="o">
+                <label for="fname">P Price:</label><br>
+                <input type="text" id="fname" data-name="" name="fname" style="width:98%">
+              </div>
+              <div class="o">
+                <label for="fname">MRP:</label><br>
+                <input type="text" id="fname" data-name="" name="fname" style="width:98%">
+              </div>
+            </div>
+          </center>
+        </div>
+
+
+  
+<div class="row">
+  <div class="col-md-12">
+    <div class="tab">
+      <div class="billing" style="height: 100%">
+        <!-- Start Heading 3 Images -->
+        
+      </div>
+      <div class="row" id="chi">
+        <div class="col-md-12">
+             <div class="card" style="border: 2px solid black; height: 65%; max-height:300px; overflow-y:scroll">
+            <div class="plcbill" id="print_area">
+              <div class="card" style="display: flex;">
+                <table
+                  class="table table-borderless"
+                  id="bill-items"
+                  style="width: 100%"
+                >
+                  <thead>
+                    <tr>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">ID</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">SUPPLIER</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">MANUFACTURER</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">GROUP</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">CATEGORY</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">BRAND</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">ITEM TYPE</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">BARCODE</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">TITLE</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">HSN_NO</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">ITEM SIZE</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">ITEM COLOR</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">COLOR_TAG</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">ACTUAL MRP</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">PUR.PRICE</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">SELL.PRICE</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">DISCOUNTED PRICE</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">TAX_ON</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">GST(%)</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">PUR.TAX TYPE</th> 
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">PUR.TAX(%)</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">CESS(%)</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">SELL.TAX(%)</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">PROD.PUR DATE</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">PROD.MNF DATE</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">EXPIRY DATE</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">ALERTMENT DATE</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">DESCRIPTION</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">PROD.IMG</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">ACTION</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for p in product_list %}
+                      <tr>
+                        <td scope="row">{{ p.id }}</td>
+                        <td scope="row">{{ p.supplier }}</td>
+                        <td scope="row">{{ p.manufacturer }}</td>
+                        <td scope="row">{{ p.group }}</td>
+                        <td scope="row">{{ p.category }}</td>
+                        <td scope="row">{{ p.brand }}</td>
+                        <td scope="row">{{ p.item_type }}</td>
+                        <td scope="row">{{ p.barcode }}</td>
+                        <td scope="row">{{ p.title }}</td>
+                        <td scope="row">{{ p.hsn_no }}</td>
+                        <td scope="row">{{ p.item_size }}</td>
+                        <td scope="row">{{ p.item_color }}</td>
+                        <td scope="row">{{ p.color_tag }}</td>
+                        <td scope="row">{{ p.actual_mrp }}</td>
+                        <td scope="row">{{ p.purchase_price }}</td>
+                        <td scope="row">{{ p.selling_price }}</td>
+                        <td scope="row">{{ p.discounted_price }}</td>
+                        <td scope="row">{{ p.tax_on }}</td>
+                        <td scope="row">{{ p.gst }}</td>
+                        <td scope="row">{{ p.purchase_tax_type }}</td>
+                        <td scope="row">{{ p.purchase_tax }}</td>
+                        <td scope="row">{{ p.cess }}</td>
+                        <td scope="row">{{ p.selling_tax }}</td>
+                        <td scope="row">{{ p.product_purchase_date }}</td>
+                        <td scope="row">{{ p.manufacture_date }}</td>
+                        <td scope="row">{{ p.expiry_date }}</td>
+                        <td scope="row">{{ p.alertment_date }}</td>
+                        <td scope="row">{{ p.description }}</td>
+                        <td scope="row"><img src="{{ p.product_image.url }}" style="height: 45px;"></td>
+                        <td>
+                          <a href="{% url 'update_data' p.id %}" class="btn btn-warning btn-sm">Edit</a>
+                          <form action="{% url 'deletedata' p.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                          </form>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <script>
+      const debounce = function (cb, timeout = 1000) {
+        let refID;
+        return function () {
+          const self = this;
+          const args = arguments;
+          clearTimeout(refID);
+          refID = setTimeout(() => cb.apply(self, args), timeout);
+        };
+      };
+
+      $(document).ready(function () {
+        
+        $('#submit').click(function() {
+          const fields = ['supplier','manufacturer','group','category','brand','item_type','barcode','title','hsn_no','item_size','item_color','actual_mrp','purchase_price','selling_price','discounted_price','tax_on','gst','purchase_tax_type','purchase_tax','cess','selling_tax','product_purchase_date','manufacture_date','expiry_date','alertment_date','description']
+          // ,'product_image']
+          const product = new FormData()
+          for(let field of fields) {
+            let value = $(`[data-name="${field}"]`).val()
+            value = value === '' ? null : value
+            if(/^[\d.]+$/.test(value)) {
+              value = Number(value)
+            }
+            product.append(field, value)
+          }
+
+          let [file] = $('[data-name="product_image"]')[0].files
+          product.append('product_image', file)
+
+          product.append('csrfmiddlewaretoken', "{{ csrf_token }}")
+
+          $.ajax({
+            method: 'POST',
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+            data: product,
+            success: function(resp) {
+              console.log(resp)
+              location.reload()
+            }
+          })
+        })
+
+        $('[data-name="barcode"]').change(function() {
+          const barcode = $(this).val()
+
+          $.ajax({
+            url: '/api/get_purchase_product',
+            data: {
+              barcode, 
+              csrfmiddlewaretoken: "{{ csrf_token }}"
+            }, 
+            success: function({data}) {
+              $('[data-name="supplier"').val(data.purchase.supplier_name)
+              $('[data-name="title"').val(data.product.product_description)
+              $('[data-name="hsn_no"').val(data.product.hsn_no)
+              $('[data-name="actual_mrp"').val(data.product.mrp)
+              $('[data-name="purchase_price"').val(data.product.p_price)
+              $('[data-name="selling_price"').val(data.product.mrp)
+              $('[data-name="gst"').val(data.product.tax)
+              $('[data-name="purchase_tax_type"').val(data.purchase.bill_type)
+              $('[data-name="purchase_tax"').val(data.product.tax)
+              $('[data-name="cess"').val(data.purchase.cess || '')
+              $('[data-name="selling_tax"').val(data.product.tax)
+              $('[data-name="product_purchase_date"').val(data.purchase.trans_date)
+            }
+          })
+        })
+        
+        
+      });
+    </script>
+
+  </body>
+</html>

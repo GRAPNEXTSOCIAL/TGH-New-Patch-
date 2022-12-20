@@ -132,7 +132,7 @@ crossorigin="anonymous"
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               {% if request.user.is_authenticated %}
                <li class="nav-item dropdown mx-2">
-                  <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold; text-transform: uppercase;">
+                  <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold; text-transform: uppercase;background-color: rgb(10, 10, 90);color: #fff;border-radius: 20%;">
                     {{request.user.username|capfirst}}
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="profileDropdown">
@@ -157,7 +157,7 @@ crossorigin="anonymous"
       <div class="row">
         <div class="col-md-3">
               <label for="pur_trans_date"><span style="font-weight: bold;">Trans Date:</label>
-              <input type="text" placeholder="YYYY-MM-DD" name="pur_trans_date" style="width:50%;" data-name="trans_date">
+              <input type="date" name="pur_trans_date" style="width:50%;" data-name="trans_date">
               <br>
               <label for="pur_supplier_name"><span style="font-weight: bold;">Supplier:</label>
               <select name="pur_supplier_name" id="" style="width: 50%;" data-name="supplier_name">
@@ -171,8 +171,7 @@ crossorigin="anonymous"
               <label for="pur_bill_type"><span style="font-weight: bold;">Bill Type:</label>
               <select name="pur_bill_type" id="" style="width: 50%;" data-name="bill_type">
                 <option value="">Select Bill Tax Type</option>
-                <option value="CGST">CGST</option>
-                <option value="SGST">SGST</option>
+                <option value="CGST/SGST">CGST/SGST</option>
                 <option value="IGST">IGST</option>
                 <option value="UNREGD">UNREGD</option>
                 <option value="COMPOSITE">COMPOSITE</option>
@@ -189,7 +188,7 @@ crossorigin="anonymous"
             </div>
             <div class="col-md-6">
               <label for="pur_bill_no"><span style="font-weight: bold;">Bill Date:</label>
-              <input type="datetime" data-name="" placeholder="pur_trans_date" name="" style="width: 50%;">
+              <input type="date" data-name="" placeholder="pur_trans_date" name="" style="width: 50%;">
               <br>
               <label for="pur_gstin"><span style="font-weight: bold;">GSTIN:</label>
               <input type="text" data-name="gstin" name="pur_gstin" style="width: 50%;">
@@ -231,6 +230,7 @@ crossorigin="anonymous"
                 >
                   <thead>
                     <tr>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;"></th>
                       <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Sl.No</th>
                       <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">BarCode</th>
                       <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Product Description</th>
@@ -290,13 +290,13 @@ crossorigin="anonymous"
                      <input type="text" placeholder="" data-name="disc_amt" name="" style="width:40%;"/>
                         <br /> 
                         <label for="pur_sgst_amt" style="font-size:12px;">SGST Amt</label>
-                      <input type="text" placeholder="" data-name="gst_amt" name="" style="width:40%;"/>
+                      <input type="text" placeholder="" data-name="sgst_amt" name="" style="width:40%;"/>
                         <br />
                         <label for="pur_cgst_amt" style="font-size:12px;">CGST Amt</label>
-                    <input type="text" placeholder="" data-name="gst_amt" name="" style="width:40%;"/>
+                    <input type="text" placeholder="" data-name="cgst_amt" name="" style="width:40%;"/>
                         <br />  
                         <label for="pur_igst_amt" style="font-size:12px;">IGST Amt</label>
-                    <input type="text" placeholder="" data-name="gst_amt" name="" style="width:40%;"/>
+                    <input type="text" placeholder="" data-name="igst_amt" name="" style="width:40%;"/>
                         
                  </div>
                  
@@ -454,11 +454,17 @@ crossorigin="anonymous"
           const tbody = $("#bill-items tbody");
 
           if (!fields.barcode) return;
-
+          console.log(fields)
           let tr = $("<tr />").data("data", fields);
 
-          $(tr).append($("<td />").text($(tbody).find('tr').length + 1));
-          $(tr).append($("<td />").text(fields.barcode || ''));
+          $(tr).append($("<td />").html('<button class="i-remove"><i class="fas fa-circle-minus" style="color: #ff5f5f;"/></button>'));
+
+          $(tr).append($("<td />").html(`<div data-name="sl_no">${$(tbody).find('tr').length + 1}</div>`));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input data-name="barcode" type="text" value="${fields.barcode || ''}" data-value="${fields.barcode || ''}" readonly>
+            </div>
+          `));
           $(tr).append($("<td />").html(`
             <div>
               <input data-name="product_description" type="text" value="${fields.product_name || ''}" data-value="${fields.product_name || ''}" class="product-description-field">
@@ -491,7 +497,7 @@ crossorigin="anonymous"
           `));
           $(tr).append($("<td />").html(`
             <div>
-              <input data-name="p_price" type="number" min="0" value="${fields.p_Price || 0}" data-value="${fields.p_Price || 0}" class="p-Price-field">
+              <input data-name="p_price" type="number" min="0" value="${fields.p_price || 0}" data-value="${fields.p_price || 0}" class="p-Price-field">
             </div>
           `));
           $(tr).append($("<td />").html(`
@@ -511,7 +517,7 @@ crossorigin="anonymous"
           `));
           $(tr).append($("<td />").html(`
             <div>
-              <input data-name="d_Amt1" type="number" min="0" value="${fields.d_Amt1 || 0}" data-value="${fields.d_Amt1 || 0}" class="d_Amt1-field">
+              <input data-name="d_Amt1" readonly type="number" min="0" value="${fields.d_Amt1 || 0}" data-value="${fields.d_Amt1 || 0}" class="d_Amt1-field">
             </div>
           `));
           $(tr).append($("<td />").html(`
@@ -521,27 +527,27 @@ crossorigin="anonymous"
           `));
           $(tr).append($("<td />").html(`
             <div>
-              <input data-name="d_Amt2" type="number" min="0" value="${fields.d_Amt2 || 0}" data-value="${fields.d_Amt2 || 0}" class="d_Amt2-field">
+              <input data-name="d_Amt2" readonly type="number" min="0" value="${fields.d_Amt2 || 0}" data-value="${fields.d_Amt2 || 0}" class="d_Amt2-field">
             </div>
           `));
           $(tr).append($("<td />").html(`
             <div>
-              <input data-name="l_Cost" type="number" min="0" value="${fields.l_Cost || 0}" data-value="${fields.l_Cost || 0}" class="l_cost-field">
+              <input data-name="l_Cost" readonly type="number" min="0" value="${fields.l_Cost || 0}" data-value="${fields.l_Cost || 0}" class="l_cost-field">
             </div>
           `));
           $(tr).append($("<td />").html(`
             <div>
-              <input data-name="tot_Cost" type="number" min="0" value="${fields.tot_Cost || 0}" data-value="${fields.tot_Cost || 0}" class="tot-cost-field">
+              <input data-name="tot_Cost" readonly type="number" min="0" value="${fields.tot_Cost || 0}" data-value="${fields.tot_Cost || 0}" class="tot-cost-field">
             </div>
           `));
           $(tr).append($("<td />").html(`
             <div>
-              <input data-name="s_Price" type="number" min="0" value="${fields.s_Price || 0}" data-value="${fields.s_Price || 0}" class="s_Price-field">
+              <input data-name="s_Price" readonly type="number" min="0" value="${fields.s_Price || 0}" data-value="${fields.s_Price || 0}" class="s_Price-field">
             </div>
           `));
           $(tr).append($("<td />").html(`
             <div>
-              <input data-name="total" type="number" min="0" value="${fields.total || 0}" data-value="${fields.total || 0}" class="total-field">
+              <input data-name="total" readonly type="number" min="0" value="${fields.total || 0}" data-value="${fields.total || 0}" class="total-field">
             </div>
           `));
           $(tr).append($("<td />").html(`
@@ -551,45 +557,6 @@ crossorigin="anonymous"
           `));
 
           $(tbody).append(tr);
-        }
-
-        function getBillData() {
-          const name = $('input[name="custname"]').val();
-          const email = $('input[name="custemail"]').val();
-          const phone = $('input[name="custphone"]').val();
-
-          const tbody = $("#bill-items tbody");
-          let products = [];
-          $(tbody)
-            .children("tr")
-            .each(function (i, tr) {
-              products.push($(tr).data("data"));
-            });
-
-          return { name, email, phone, products };
-        }
-
-        function calculateSubTotal() {
-          const items = $("#bill-items tbody tr");
-          let total = 0;
-
-          $(items).each(function (i, item) {
-            let { quantity, price } = $(item).data("data");
-            total += price * quantity;
-          });
-          $('[name="subtotal"]').val(total).attr("readonly", true);
-          $('[name="grandtotal"]').val(total).attr("readonly", true);
-        }
-
-        function calculateTax() {
-          const items = $("#bill-items tbody tr");
-          let tax = 0;
-
-          $(items).each(function (i, item) {
-            let { quantity, taxamount } = $(item).data("data");
-            tax += taxamount * quantity;
-          });
-          $('[name="totaltax"]').val(tax).attr("readonly", true);
         }
 
         function addToBill () {
@@ -602,7 +569,7 @@ crossorigin="anonymous"
             size: "",
             qty: "",
             free: "",
-            p_Price: "",
+            p_price: "",
             mrp: "",
             tax: "",
             cess: "",
@@ -637,6 +604,7 @@ crossorigin="anonymous"
             fields[field] = $(`[name="${field}"]`).val();
             $(`[name="${field}"]`).val("");
           }
+        
 
           addProductToBill(fields);
         }
@@ -654,62 +622,6 @@ crossorigin="anonymous"
             }
           })
         );
-
-
-        $("#add-btn").click(addToBill);
-
-        $('input[name="custphone"]').on(
-          "input",
-          debounce(function () {
-            let phone = $(this).val();
-            if (phone) {
-              $.ajax({
-                url: "/api/customer",
-                method: "POST",
-                data: {
-                  csrfmiddlewaretoken: "{{ csrf_token }}",
-                  phone,
-                },
-                success: function (resp) {
-                  const data = resp.data[0];
-                  if (!data) {
-                    $('input[name="custphone"]').val(phone);
-                    return;
-                  }
-
-                  for (let key in customer_key_name_pair) {
-                    $(`[name="${customer_key_name_pair[key]}"]`).val(data[key]);
-                  }
-                },
-              });
-            }
-          })
-        );
-
-        $('input[name="custname"]').change(function () {
-          $('input[name="custname"]').val($(this).val());
-        });
-
-        $('input[name="custemail"]').change(function () {
-          $('input[name="custemail"]').val($(this).val());
-        });
-
-        $("#hold-save").click(function () {
-          let data = getBillData();
-          data.hold = true;
-
-          $.ajax({
-            url: "/api/bill",
-            method: "POST",
-            data: {
-              csrfmiddlewaretoken: "{{ csrf_token }}",
-              data: JSON.stringify(data),
-            },
-            success: function (data) {
-              alert(data.cart_id);
-            },
-          });
-        });
 
         $("#bill-search").click(function () {
           let cart_id = $("#bill-no").val();
@@ -765,38 +677,138 @@ crossorigin="anonymous"
           $("#bill-items tbody tr").remove();
         });
 
-        $("#generate-bill").click(function (e) {
-          e.preventDefault();
-          let data = getBillData();
-          data.hold = false;
-          data.coupon_code = $('[name="coupon"]').data('code')
+        
+        $("#bill-items tbody").on('input', '[data-name]', function() {
+          let row = $(this).parents('tr');
 
-          $.ajax({
-            url: "/api/bill",
-            method: "POST",
-            data: {
-              csrfmiddlewaretoken: "{{ csrf_token }}",
-              data: JSON.stringify(data),
-            },
-            success: function (data) {
-              location.href = "{% url 'demo' %}?cart_id=" + data.cart_id;
-            },
-          });
-        });
+          function getValue(name, defaultVal=0, Type=Number) {
+            return Type($(row).find(`[data-name="${name}"]`).val()) || defaultVal
+          }
 
-        $("#print-btn").click(function () {
-          window.print();
-        });
+          function getOldValue(name, defaultVal=0, Type=Number) {
+            return Type($(row).find(`[data-name="${name}"]`).data('value')) || defaultVal
+          }
 
-        $("#bill-items tbody").on('change', '[data-name]', function() {
-          let oldValue = $(this).data('value')
-          let newValue = $(this).val()
-          $(this).data('value', newValue)
+          function setValue(name, value) {
+            $(row).find(`[data-name="${name}"]`).val(value)
+            $(row).find(`[data-name="${name}"]`).data('value', value)
+          }
 
-          if($(this).data('name') === 'p_price') {
-            let totalAmt = Number($('[data-name="gross_amt"]').val()) || 0;
-            let newTotal = totalAmt - (Number(oldValue) || 0) + (Number(newValue) || 0)
-            $('[data-name="gross_amt"]').val(newTotal)
+          let qty = getValue("qty")
+          let p_price = getValue("p_price")
+          let mrp = getValue("mrp")
+
+          let tax = getValue("tax")
+          let disc1 = getValue("disc1")
+          let disc2 = getValue("disc2")
+
+
+          let l_Cost_calculated = p_price * ((100 + tax) / 100)
+          // let d_Amt1_calculated = p_price * (disc1 / 100)
+          // let d_Amt2_calculated = p_price * (disc2 / 100)
+          let tot_Cost_calculated = l_Cost_calculated * qty
+          let total_calculated = p_price * qty - (disc1+disc2)
+          let s_Price_calculated = mrp
+          let marg_calculated = mrp == 0 ? 0 : (mrp - p_price) / mrp * 100
+
+          let total_old = getValue('total')
+          let total_new = total_calculated
+
+          setValue("l_Cost", l_Cost_calculated.toFixed(2))
+          setValue("d_Amt1", disc1.toFixed(2))
+          setValue("d_Amt2", disc2.toFixed(2))
+          setValue("tot_Cost", tot_Cost_calculated.toFixed(2))
+          setValue("total", total_calculated.toFixed(2))
+          setValue("s_Price", s_Price_calculated.toFixed(2))
+          setValue("marg", marg_calculated.toFixed(2))
+
+          let tax_old = getOldValue('tax')
+          let tax_new = tax
+
+          let p_price_old = getOldValue('p_price')
+          let p_price_new = p_price
+         
+          let qty_old = getOldValue('qty')
+          let qty_new = qty
+          
+          let totalAmt = Number($('[data-name="gross_amt"]').val()) || 0;
+          let newTotal = totalAmt - total_old + total_new
+          $('[data-name="gross_amt"]').val(newTotal)
+
+          if($('[data-name="bill_type"]').val() === 'IGST') {
+            let tax_value_old = (p_price_old * qty_old) * (tax_old / 100)
+            let tax_value_new = (p_price_new * qty_new) * (tax_new / 100)
+
+            let totalTax = Number($('[data-name="igst_amt"]').val()) || 0;
+            let newTax = totalTax - tax_value_old + tax_value_new
+            $('[data-name="igst_amt"]').val(newTax)
+          } else if($('[data-name="bill_type"]').val() === 'CGST/SGST') {
+            let tax_value_old = (p_price_old * qty_old) * (tax_old / 200)
+            let tax_value_new = (p_price_new * qty_new) * (tax_new / 200)
+        
+          //   let totalTax = Number($('[data-name="sgst_amt"]').val()) || 0;
+          //   let newTax = totalTax - tax_value_old + tax_value_new
+            // $('[data-name="cgst_amt"]').val(newTax)
+            // $('[data-name="sgst_amt"]').val(newTax)
+            $('[data-name="cgst_amt"]').val(tax_value_new)
+            $('[data-name="sgst_amt"]').val(tax_value_new)
+          }
+
+          setValue("tax", tax)
+          // setValue("p_price", p_price)
+          setValue("qty", qty)
+
+          let grand_total = calculateGrandTotal()
+          $('[data-name="grand_total"]').val(grand_total)
+        })
+
+        $('#bill-items tbody').on('click', '.i-remove', function() {
+          let row = $(this).parents('tr');
+          const currentSlNo = Number(row.find('[data-name="sl_no"]').html());
+          const allRows = $("table > tbody > tr");
+          
+          function getValue(name, defaultVal=0, Type=Number) {
+            return Type($(row).find(`[data-name="${name}"]`).val()) || defaultVal
+          }
+
+          function getOldValue(name, defaultVal=0, Type=Number) {
+            return Type($(row).find(`[data-name="${name}"]`).data('value')) || defaultVal
+          }
+
+          let total_old = getValue('total')
+          let tax_old = getOldValue('tax')
+          let p_price_old = getOldValue('p_price')
+          let qty_old = getOldValue('qty')
+
+          let totalAmt = Number($('[data-name="gross_amt"]').val()) || 0;
+          let newTotal = totalAmt - total_old
+          $('[data-name="gross_amt"]').val(newTotal)
+
+          if($('[data-name="bill_type"]').val() === 'IGST') {
+            let tax_value_old = (p_price_old * qty_old) * (tax_old / 100)
+
+            let totalTax = Number($('[data-name="igst_amt"]').val()) || 0;
+            let newTax = totalTax - tax_value_old
+            $('[data-name="igst_amt"]').val(newTax)
+          } else if($('[data-name="bill_type"]').val() === 'CGST/SGST') {
+            let tax_value_old = (p_price_old * qty_old) * (tax_old / 200)
+
+            let totalTax = Number($('[data-name="sgst_amt"]').val()) || 0;
+            let newTax = totalTax - tax_value_old
+            $('[data-name="cgst_amt"]').val(newTax)
+            $('[data-name="sgst_amt"]').val(newTax)
+          }
+
+          let grand_total = calculateGrandTotal()
+          $('[data-name="grand_total"]').val(grand_total)
+
+          $(row).remove()
+
+          //to revise the serial numbers after row deletion
+          for (let index = currentSlNo-1; index<allRows.length; index++){
+            const currentRow = $(allRows[index]);
+            const slNo= $(currentRow).find('[data-name="sl_no"]').html();
+            $(currentRow).find('[data-name="sl_no"]').html(Number(slNo)-1);
           }
         })
 
@@ -805,19 +817,40 @@ crossorigin="anonymous"
           const products = []
           let total_qty = 0
           $(trs).each(function(i, tr) {
-            const product = {}
-            $(tr).find('input[data-name]').each(function(ii, field) {
-              const {name, value} = $(field).data();
-              product[name] = value
-            })
+            const product = {
+              barcode: $(tr).find('[data-name="barcode"]').val(),
+              product_description: $(tr).find('[data-name="product_description"]').val(),
+              article_no: $(tr).find('[data-name="article_no"]').val(),
+              hsn_no: $(tr).find('[data-name="hsn_no"]').val(),
+              size: $(tr).find('[data-name="size"]').val(),
+              qty: $(tr).find('[data-name="qty"]').val(),
+              free: $(tr).find('[data-name="free"]').val(),
+              p_price: $(tr).find('[data-name="p_price"]').val(),
+              mrp: $(tr).find('[data-name="mrp"]').val(),
+              tax: $(tr).find('[data-name="tax"]').val(),
+              disc1: $(tr).find('[data-name="disc1"]').val(),
+              d_Amt1: $(tr).find('[data-name="d_Amt1"]').val(),
+              disc2: $(tr).find('[data-name="disc2"]').val(),
+              d_Amt2: $(tr).find('[data-name="d_Amt2"]').val(),
+              l_Cost: $(tr).find('[data-name="l_Cost"]').val(),
+              tot_Cost: $(tr).find('[data-name="tot_Cost"]').val(),
+              s_Price: $(tr).find('[data-name="s_Price"]').val(),
+              total: $(tr).find('[data-name="total"]').val(),
+              marg: $(tr).find('[data-name="marg"]').val()
+            }
+            // $(tr).find('input[data-name]').each(function(ii, field) {
+            //   console.log($(field).data())
+            //   const {name, value} = $(field).data();
+            //   product[name] = value
+            // })
             total_qty += Number(product.qty)
             products.push(product)
           })
 
           let gst_amt = 0
-          $('[data-name="gst_amt"]').each(function(i, item) {
-            gst_amt += (Number($(item).val()) || 0)
-          })
+          // $('[data-name="gst_amt"]').each(function(i, item) {
+          //   gst_amt += (Number($(item).val()) || 0)
+          // })
 
           const purchase = {
             trans_date: $('[data-name="trans_date"]').val(),
@@ -844,9 +877,19 @@ crossorigin="anonymous"
             },
             success: function(resp) {
               console.log(resp)
+              location.reload()
             }
           })
         })
+      
+        function calculateGrandTotal() {
+          let gross = Number($('[data-name="gross_amt"]').val()) || 0
+          let cgst = Number($('[data-name="cgst_amt"]').val()) || 0
+          let sgst = Number($('[data-name="sgst_amt"]').val()) || 0
+          let igst = Number($('[data-name="igst_amt"]').val()) || 0
+
+          return gross + cgst + sgst + igst
+        }
       });
     </script>
 

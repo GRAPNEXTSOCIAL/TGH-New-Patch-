@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import views as auth_views
-from .models import Product, Cart, Customer, OrderPlaced, User
+from .models import Product, Cart, Customer, OrderPlaced, User, Supplier
 
 import json
 
@@ -133,7 +133,9 @@ def all_success_bills(request):
 # All Lists (staff)(manager)
 # Staff view
 def staff_dashboard(request):
-    return render(request, 'staff/staff_home.html')
+    product = Product.objects.all()
+    supplier = Supplier.objects.all()
+    return render(request, 'staff/staff_home.html', {'product_list':product, 'supplier_list':supplier})
 
 # Product View list(Staff)
 def product_all(request):
@@ -334,32 +336,6 @@ def category_insert(request):
             submitted = True
     return render(request, 'admin_app/category_insert.html', {'forms':forms, 'submitted':submitted})
 
-# Purchase insert(Admin)
-def purchase_insert(request):
-    submitted = False
-    if request.method == "POST":
-        forms = PurchaseForm(request.POST)
-        if forms.is_valid():
-            forms.save()
-            return redirect(purchase_insert)
-    else:
-        forms = PurchaseForm()
-        if 'submitted' in request.GET:
-            submitted = True
-    return render(request, 'admin_app/purchase_insert.html', {'forms':forms, 'submitted':submitted})
-
-# Purchase Product Insert(Admin)
-def purchase_product_insert(request):
-    submitted = False
-    if request.method == "POST":
-        forms = PurchaseProductForm(request.POST)
-        return redirect(purchase_product_insert)
-    else:
-        forms = PurchaseProductForm()
-        if 'submitted' in request.GET:
-            submitted = True
-    return render(request, 'admin_app/purchase_product_insert.html', {'forms':forms, 'submitted':submitted})
-
 # Coupon insert(Admin)
 def coupon_insert(request):
     submitted = False
@@ -546,20 +522,6 @@ def insert_customer(request):
             submitted = True
     return render(request, 'staff/customerinsertform.html', {'form':form, 'submitted':submitted})
 
-# Purchase insert(Admin)
-def add_purchase_insert(request):
-    submitted = False
-    if request.method == "POST":
-        forms = PurchaseForm(request.POST)
-        if forms.is_valid():
-            forms.save()
-            return redirect(add_purchase_insert)
-    else:
-        forms = PurchaseForm()
-        if 'submitted' in request.GET:
-            submitted = True
-    return render(request, 'staff/purchase_insert.html', {'forms':forms, 'submitted':submitted})
-
 # Supplier insert(manager)
 def insert_supplier(request):
     submitted = False
@@ -592,33 +554,6 @@ def payment_mode_insert(request):
 
 
 # Accountant insert
-# Purchase insert(Accountant)
-def insert_purchase(request):
-    submitted = False
-    if request.method == "POST":
-        forms = PurchaseForm(request.POST)
-        if forms.is_valid():
-            forms.save()
-            return redirect(insert_purchase)
-    else:
-        forms = PurchaseForm()
-        if 'submitted' in request.GET:
-            submitted = True
-    return render(request, 'accountant_app/purchase_insert.html', {'forms':forms, 'submitted':submitted})
-
-# Purchase Product Insert(Accountant)
-def purchase_product_inserts(request):
-    submitted = False
-    if request.method == "POST":
-        forms = PurchaseProductForm(request.POST)
-        return redirect(purchase_product_inserts)
-    else:
-        forms = PurchaseProductForm()
-        if 'submitted' in request.GET:
-            submitted = True
-    return render(request, 'accountant_app/purchase_product_insert.html', {'forms':forms, 'submitted':submitted})
-
-
 # Coupon insert(Accountant)
 def insert_coupon(request):
     submitted = False
@@ -898,7 +833,7 @@ def purchase_bill(request):
         return render(request, 'purchase_bills.html', {'supplier_all':supplier_all})
 
 def exit_bill(request):
-    return render(request, 'app/home.html')
+    return redirect(dashboard)
 
 def bill_print(request):
     return render(request, 'bill_print.html')
@@ -1028,27 +963,13 @@ def update_category(request, id):
         fm = CategoryForm(instance=cat)
     return render(request, 'admin_app/update_category.html', {'form':fm})
 
-# Purchase Update(admin)
-def update_purchase(request, id):
-    if request.method == 'POST':
-        p = Purchase.objects.get(pk=id)
-        fm = PurchaseForm(request.POST, instance=p)
-        if fm.is_valid():
-            fm.save()
-            fm.clean()
-    else:
-        p = Purchase.objects.get(pk=id)
-        fm = PurchaseForm(instance=p)
-    return render(request, 'admin_app/update_purchase.html', {'form':fm})
-
-
 # Delete Function(Admin)
 # Product Delete(admin)
 def delete_data(request, id):
     if request.method =='POST':
         pd=Product.objects.get(pk=id)
         pd.delete()
-        return redirect(all_products)
+        return redirect(product_master)
 
 # Cart Delete(admin)
 def cart_delete(request, id):
@@ -1133,3 +1054,27 @@ def purchase_delete(request, id):
         tx = Purchase.objects.get(pk=id)
         tx.delete()
         return redirect(all_purchase)
+
+
+# Product Master
+def product_master(request):
+    if request.method == 'POST':
+        product = ProductForm(request.POST, request.FILES)
+        product.save()
+
+        return JsonResponse({'status': True})
+        
+
+    supplier_all = Supplier.objects.all()
+    group_list = Itemgroup.objects.all()
+    category_list = Category.objects.all()
+    item_sizes = Size.objects.all()
+
+    product_list = Product.objects.all()
+    return render(request, 'admin_app/product_master.html', {
+        'supplier_all': supplier_all,
+        'group_list': group_list,
+        'category_list': category_list,
+        'item_sizes': item_sizes,
+        'product_list':product_list
+    })

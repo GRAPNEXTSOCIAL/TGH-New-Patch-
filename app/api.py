@@ -3,7 +3,8 @@ from datetime import datetime
 
 from django.http import JsonResponse
 from django.core import serializers
-from .models import Cart, Customer, Product, Tax, Coupon
+from django.forms.models import model_to_dict
+from .models import Cart, Customer, Product, Tax, Coupon, PurchaseProduct
 
 
 def filter_product(request):
@@ -133,3 +134,23 @@ def check_coupon(request):
         'error': 'Method not Allowed',
         'status_code': 405
     }, status=405)
+
+def get_purchase_product(request):
+    if request.method == 'GET':
+        barcode = request.GET.get('barcode')
+        purchaseProduct = PurchaseProduct.objects.filter(barcode=barcode).last()
+        result = {}
+
+        if purchaseProduct:
+            result['product']  = model_to_dict(purchaseProduct)
+            result['purchase']  = model_to_dict(purchaseProduct.pur_bill_no)
+            # result['purchase']['supplier_name'] = model_to_dict(purchaseProduct.pur_bill_no.supplier_name)
+        
+        print(result)
+        return JsonResponse({'data': result})
+    
+    return JsonResponse({
+        'error': 'Method not Allowed',
+        'status_code': 405
+    }, status=405)
+

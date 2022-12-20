@@ -85,8 +85,7 @@ class ProductForm(ModelForm):
             'title', 
             'hsn_no', 
             'item_size', 
-            'item_color',
-            'color_name',  
+            'item_color', 
             'actual_mrp', 
             'purchase_price', 
             'selling_price', 
@@ -115,8 +114,7 @@ class ProductForm(ModelForm):
             'title' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Product Name'}), 
             'hsn_no' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Enter the HSN_NO'}), 
             'item_size' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
-            'item_color' :forms.Select(attrs={'class':'form-control form-control-color', 'placeholder':'Select'}), 
-            'color_name' :forms.Select(attrs={'class':'form-control', 'placeholder':'Please Enter the Color_Name'}), 
+            'item_color' :forms.TextInput(attrs={'class':'form-control', 'type':'color', 'placeholder':'Select'}), 
             'purchase_price' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Purchase Price'}), 
             'actual_mrp' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Actual Mrp Rs.'}), 
             'selling_price' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Selling Price'}),
@@ -242,14 +240,12 @@ class ColorForm(ModelForm):
     class Meta:    
         model = Color
         fields = [
-            'color_code',
-            'color_name',  
+            'color_code', 
             'item_color'
         ]
         widgets = {
             'color_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Color Code'}), 
-            'color_name' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Color-Name'}), 
-            'item_color' :forms.TextInput(attrs={'class':'form-control form-control-color', 'placeholder':'Please Enter the Color'})
+            'item_color' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Color'})
         }
 
 class SizeForm(ModelForm):
@@ -316,86 +312,6 @@ class CategoryForm(ModelForm):
            'category_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Category Code'}), 
            'category' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Category Name'}), 
         }
-
-class PurchaseForm(ModelForm):
-    class Meta:
-        model = Purchase
-        fields = [
-            'trans_date', 
-            'gstin', 
-            'pur_bill_no', 
-            'bill_type', 
-            'supplier_name', 
-            'total_qty', 
-            'gross_amt', 
-            'disc_amt', 
-            'gst_amt', 
-            'tcs', 
-            'o_charge', 
-            'o_disc', 
-            'grand_total'
-        ]
-        widgets = {
-            'trans_date' :forms.DateInput(attrs={'class':'form-control', 'placeholder':'YYYY-MM-DD'}),
-            'gstin' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Gstin no'}), 
-            'pur_bill_no' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Bill No'}), 
-            'bill_type' :forms.Select(attrs={'class':'form-control', 'placeholder':'Slect'}), 
-            'supplier_name' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
-            'total_qty' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Total Quantity'}), 
-            'gross_amt' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Gross Amount'}), 
-            'disc_amt' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Discounted Amount'}), 
-            'gst_amt' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The GST Amount'}), 
-            'tcs' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The TCS Amount'}), 
-            'o_charge' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Overall Charge'}), 
-            'o_disc' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Overall Discount'}), 
-            'grand_total' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Grand Total'})
-        }
-
-class PurchaseProductForm(ModelForm):
-    class Meta:
-        model = PurchaseProduct
-        fields = [
-            'pur_bill_no', 
-            'barcode', 
-            'product_description', 
-            'article_no', 
-            'size', 
-            'qty', 
-            'free', 
-            'p_price', 
-            'mrp', 
-            'tax', 
-            'disc1', 
-            'd_Amt1', 
-            'disc2', 
-            'd_Amt2', 
-            'l_Cost', 
-            'tot_Cost', 
-            's_Price', 
-            'total', 
-            'marg'
-        ]
-    widgets = {
-            'pur_bill_no' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
-            'barcode' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Barcode'}), 
-            'product_description' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Product_Description'}), 
-            'article_no' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Article No'}), 
-            'size' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Size'}), 
-            'qty' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Quantity'}), 
-            'free' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Please Enter The Free Amount'}), 
-            'p_price' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Product Price'}), 
-            'mrp' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Mrp'}), 
-            'tax' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Tax'}), 
-            'disc1' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Discount1 in %'}), 
-            'd_Amt1' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Discoun Amount1'}), 
-            'disc2' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Discount2 in %'}), 
-            'd_Amt2' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Discount Amount2 in %'}), 
-            'l_Cost' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The L_Cost'}), 
-            'tot_Cost' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Total Cost'}), 
-            's_Price' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Selling Price'}), 
-            'total' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Total Price'}), 
-            'marg' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter The Margine in %'})   
-    }
 
 class PaymentModeForm(ModelForm):
     class Meta:

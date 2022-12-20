@@ -56,6 +56,7 @@ STATUS_CHOICES = (
 )
 
 TAX_TYPE_CHOICES = (
+    ('CGST/SGST', 'CGST/SGST'), 
     ('CGST', 'CGST'), 
     ('SGST', 'SGST'), 
     ('IGST', 'IGST'), 
@@ -65,7 +66,6 @@ TAX_TYPE_CHOICES = (
 
 class Color(models.Model):
     color_code = models.CharField(max_length=5)
-    color_name = models.CharField(max_length=100)
     item_color = ColorField()
 
     def __str__(self) -> str:
@@ -141,8 +141,7 @@ class Product(models.Model):
     title = models.CharField(max_length=100)
     hsn_no = models.CharField(max_length=100)   
     item_size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
-    item_color = ColorField() 
-    color_name = models.CharField(max_length=50)   
+    item_color = ColorField()    
     actual_mrp = models.FloatField()
     purchase_price = models.FloatField()
     selling_price = models.FloatField()

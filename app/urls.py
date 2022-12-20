@@ -41,6 +41,8 @@ urlpatterns = [
 
     path('payment/', views.payment_mode_insert, name='payment-mode'), 
 
+
+
     # for admin
     path('admin-home/', views.admin_home, name="admin-home"),
     path('dashboard', views.dashboard, name="dashboard"),
@@ -88,15 +90,14 @@ urlpatterns = [
 
     path('purchase', views.all_purchase, name="list-purchase"), 
     path('purchasedelete/<int:id>', views.purchase_delete, name='purchase-delete'), 
-    path('updatepurchase/<int:id>/', views.update_purchase, name="update-purchase"),
 
     path('purchase_product', views.all_purchase_product, name='list-purchase-product'),  
 
     path('supplier', views.all_supplier, name="list-supplier"),
     path('supplierdelete/<int:id>', views.supplier_delete, name="supplier-delete"), 
     path('supplierupdate/<int:id>/', views.supplier_update, name='supplier-update'), 
-
     
+
     path('success_bill', views.all_success_bills, name='all-success-bill'), 
     path('holded_bill', views.all_hold_bills, name="all-hold-boll"), 
     path('bills', views.bill_page, name="list-bills"), 
@@ -111,10 +112,11 @@ urlpatterns = [
     path('add-supplier', views.supplier_insert, name="supplier-insert"),
     path('add-size', views.size_insert, name="size-insert"), 
     path('add-group', views.group_insert, name="g-insert"),
-    path('add-category', views.category_insert, name='cat-insert'),  
-    path('add-purchase', views.purchase_insert, name='purchase-insert'),
-    path('add-purchase_product', views.purchase_product_insert, name='pur_pro_ins'), 
-    
+    path('add-category', views.category_insert, name='cat-insert'), 
+
+
+    path('product_master', views.product_master, name='product-master'), 
+
 
     # for staff
     path('staff-home/', views.staff_home, name= "staff-home"),
@@ -139,7 +141,6 @@ urlpatterns = [
     path('tax_insert', views.insert_taxes, name="taxes-insert"),
     path('coupon_insert', views.add_coupon_insert, name="coupon-insert"),
     path('customer_insert', views.insert_customer, name="insert-customer"), 
-    path('insert_purchase', views.add_purchase_insert, name="add-purchase-insert"),  
     path('supplier_insert', views.insert_supplier, name="insert-supplier"),  
 
 
@@ -155,7 +156,6 @@ urlpatterns = [
 
     path('tax-add', views.insert_tax, name="insert-tax"),
     path('coupon-add', views.insert_coupon, name="insert-coupon"),
-    path('purchase-add', views.insert_purchase, name='insert-purchase'), 
 
 
 
@@ -176,6 +176,7 @@ urlpatterns = [
     path('api/bill', api.save_bill),
     path('api/taxes', api.taxes),
     path('api/check_coupon', api.check_coupon),
+    path('api/get_purchase_product', api.get_purchase_product),
 ] 
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -11,7 +11,6 @@
           <tr>
             <th scope="col">ID</th>
             <th scope="col">COLOR CODE</th>
-            <th scope="col">COLOR NAME</th>
             <th scope="col">COLOR</th>
           </tr>
         </thead>
@@ -20,7 +19,6 @@
           <tr>
             <td scope="row">{{ col.id }}</td>
             <td scope="row">{{ col.color_code }}</td>
-            <td scope="row">{{ col.color_name }}</td>
             <td scope="row">{{ col.item_color }}</td>
             <td>
               <form action="{% url 'color-delete' col.id %}" method="post" class="d-inline">
